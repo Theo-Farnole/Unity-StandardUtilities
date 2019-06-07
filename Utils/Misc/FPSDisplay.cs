@@ -14,9 +14,6 @@ public class FPSDisplay : MonoBehaviour
 
     void OnGUI()
     {
-        if (!(SaveSystem.optionsData != null && SaveSystem.optionsData.displayFPS))
-            return;
-
         int w = Screen.width, h = Screen.height;
 
         GUIStyle style = new GUIStyle();
