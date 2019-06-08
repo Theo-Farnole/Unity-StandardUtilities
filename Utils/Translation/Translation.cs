@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System;
 using System.IO;
+
+/// <author>
+/// http://www.demonixis.net/ajout-du-multilingue-dans-votre-jeux-avec-unity-3d/
+/// </author>
+
 public sealed class Translation : MonoBehaviour
 {
     public static readonly SystemLanguage[] Languages = { SystemLanguage.English, SystemLanguage.French };
@@ -20,7 +25,7 @@ public sealed class Translation : MonoBehaviour
 
         Translations = new Dictionary<string, string>();
 
-        var lang = SaveSystem.OptionsData.language;
+        var lang = Application.systemLanguage;
 
         // Check if the current language is supported.
         // Otherwise use the first language as default.
