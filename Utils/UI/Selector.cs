@@ -17,7 +17,7 @@ public class Selector : Selectable
     [SerializeField] private List<string> _options = new List<string>();
     [SerializeField] private TextMeshProUGUI _label;
     [Space]
-    public UnityEvent onValueChanged;
+    [SerializeField] private UnityEvent _onValueChanged;
 
     private int _value = 0;
 
@@ -25,7 +25,7 @@ public class Selector : Selectable
     private bool _isSelected = false;
     #endregion
 
-    #region Fields
+    #region Properties
     public int Value
     {
         get
@@ -45,15 +45,23 @@ public class Selector : Selectable
                 value = 0;
             }
 
-            // Invoke Event
-            if (_value != value)
+            _value = value;
+            UpdateLabel();
+
+            _onValueChanged?.Invoke();
+        }
+    }
+
+    public UnityEvent OnValueChanged
+    {
+        get
+        {
+            if (_onValueChanged == null)
             {
-                onValueChanged?.Invoke();
+                _onValueChanged = new UnityEvent();
             }
 
-            _value = value;
-
-            UpdateLabel();
+            return _onValueChanged;
         }
     }
     #endregion
@@ -61,8 +69,10 @@ public class Selector : Selectable
     #region MonoBehaviour Callbacks
     protected override void Awake()
     {
-        onValueChanged = new UnityEvent();
-        Value = 0;
+        if (_onValueChanged == null)
+        {
+            _onValueChanged = new UnityEvent();
+        }
     }
 
     void Update()
@@ -71,6 +81,11 @@ public class Selector : Selectable
         {
             Selected();
         }
+    }
+
+    protected override void OnDisable()
+    {
+        _isSelected = false;
     }
     #endregion
 
@@ -103,7 +118,6 @@ public class Selector : Selectable
 
     void UpdateLabel()
     {
-
         if (_options.Count > 1)
         {
             _label.text = _options[Value];
