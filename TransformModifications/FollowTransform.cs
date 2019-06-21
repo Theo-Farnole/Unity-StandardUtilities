@@ -9,16 +9,26 @@ public class FollowTransform : MonoBehaviour
 
     [SerializeField] private bool _followPosition = true;
     [SerializeField] private bool _followRotation = true;
+
+    private Vector3 _offset = Vector3.zero;
     #endregion
 
-    void Update()
+    void Start()
+    {
+        if (_transformToFollow == null)
+            return;
+
+        _offset = transform.position - _transformToFollow.position;
+    }
+
+    void LateUpdate()
     {
         if (_transformToFollow == null)
             return;
 
         if (_followPosition)
         {
-            transform.position = _transformToFollow.position;
+            transform.position = _transformToFollow.position + _offset;
         }
 
         if (_followRotation)
