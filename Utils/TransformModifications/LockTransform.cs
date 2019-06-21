@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LockTransform : MonoBehaviour
 {
-    [SerializeField] private bool _lockLocalPosition;
-    [SerializeField] private bool _lockRotation;
+    [SerializeField] private bool _lockLocalPosition = true;
+    [SerializeField] private bool _lockRotation = true;
 
     private Quaternion _rotation;
     private Vector3 _localPosition;

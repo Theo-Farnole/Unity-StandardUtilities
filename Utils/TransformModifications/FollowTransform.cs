@@ -4,14 +4,26 @@ using UnityEngine;
 
 public class FollowTransform : MonoBehaviour
 {
-    public Transform transformToFollow;
+    #region Fields
+    [SerializeField] private Transform _transformToFollow;
+
+    [SerializeField] private bool _followPosition = true;
+    [SerializeField] private bool _followRotation = true;
+    #endregion
 
     void Update()
     {
-        if (transformToFollow == null)
+        if (_transformToFollow == null)
             return;
 
-        transform.position = transformToFollow.position;
-        transform.rotation = transformToFollow.rotation;
+        if (_followPosition)
+        {
+            transform.position = _transformToFollow.position;
+        }
+
+        if (_followRotation)
+        {
+            transform.rotation = _transformToFollow.rotation;
+        }
     }
 }

@@ -23,9 +23,6 @@ public sealed class TranslateText : MonoBehaviour
 
     void Start()
     {
-        LanguageHandle d = new LanguageHandle(UpdateText);
-        UIMenuManager.EventLanguageChangement += d;
-
         _key = _text.text;
 
         UpdateText();

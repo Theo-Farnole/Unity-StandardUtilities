@@ -1,5 +1,4 @@
-﻿using Erebos.Inputs;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
@@ -105,9 +104,11 @@ public class Selector : Selectable
 
     void Selected()
     {
-        float horizontal = InputProxy.Character.Horizontal;
+        float horizontal = 0;
         bool isHorizontalDown = (horizontal != 0) && (_isHorizontalPressed == false);
 
+        Debug.LogError("Horizontal input isn't set! Selector can't work!");
+        
         if (isHorizontalDown)
         {
             Value += (int)Mathf.Sign(horizontal);
