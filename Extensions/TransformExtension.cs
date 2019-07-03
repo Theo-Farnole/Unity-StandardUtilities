@@ -50,4 +50,16 @@ public static class TransformExtension
 
         return GetClosestTransform(t, transforms);
     }
+
+    /// <summary>
+    /// Destroy every child inside transform t
+    /// </summary>
+    /// <param name="t"></param>
+    public static void DestroyChildren(this Transform t)
+    {
+        for (int i = t.childCount - 1; i >= 0; i--)
+        {
+            GameObject.Destroy(t.GetChild(i).gameObject);
+        }
+    }
 }
