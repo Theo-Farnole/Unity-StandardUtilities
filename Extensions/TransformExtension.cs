@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -60,6 +61,14 @@ public static class TransformExtension
         for (int i = t.childCount - 1; i >= 0; i--)
         {
             GameObject.Destroy(t.GetChild(i).gameObject);
+        }
+    }
+
+    public static void ActionForEachChildren(this Transform t, Action<GameObject> action)
+    {
+        for (int i = 0; i < t.childCount; i++)
+        {
+            action(t.GetChild(i).gameObject);
         }
     }
 }
