@@ -18,8 +18,14 @@ public static class StringExtension
         return new Color32(r, g, b, 255);
     }
 
-    // code from
-    // https://stackoverflow.com/questions/31765518/how-to-load-an-image-from-url-with-unity
+    /// <summary>
+    /// Return Texture2D from url. Doesn't work with WebGL!
+    /// </summary>
+    /// <author>
+    /// https://stackoverflow.com/questions/31765518/how-to-load-an-image-from-url-with-unity
+    /// </author>
+    /// <param name="url"></param>
+    /// <returns></returns>
     public static async Task<Texture2D> UrlToTexture(this string url)
     {
         using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(url))
