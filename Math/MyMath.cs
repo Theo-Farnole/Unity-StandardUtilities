@@ -24,4 +24,14 @@ public static class MyMath
 
         return value;
     }
+
+    /// <summary>
+    /// Return an Vector2 from an angle in radians.
+    /// </summary>
+    /// <param name="angle">In radians</param>
+    /// <returns></returns>
+    public static Vector2 AngleToVector2(float angle)
+    {
+        return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+    }
 }
