@@ -12,9 +12,7 @@ public static class GraphicExtension
     /// </summary>
     public static void Fade(this Graphic g, FadeType fadeType, float timeToFadout)
     {
-        g.StopAllCoroutines();
-
-        Debug.Log(g.transform.name + " " + fadeType + " with a duration of " + timeToFadout);
+        //g.StopAllCoroutines();
 
         new Timer(g, timeToFadout, (float f) =>
         {
