@@ -17,8 +17,11 @@ public class DrawerEnumNamedArray : PropertyDrawer
         //so get the index from there
         int index = System.Convert.ToInt32(property.propertyPath.Substring(property.propertyPath.IndexOf("[")).Replace("[", "").Replace("]", ""));
         //change the label
-        label.text = enumNames.names[index];
+        if (index < enumNames.names.Length)
+        {
+            label.text = enumNames.names[index];
+        }
         //draw field
-        EditorGUI.PropertyField(position, property, label, true);
+        EditorGUI.PropertyField(position, property, label, true);        
     }
 }
