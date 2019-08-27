@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 /// <author>
 /// https://answers.unity.com/questions/1589226/showing-an-array-with-enum-as-keys-in-the-property.html
@@ -7,8 +8,14 @@
 public class EnumNamedArrayAttribute : PropertyAttribute
 {
     public string[] names;
-    public EnumNamedArrayAttribute(System.Type names_enum_type)
+
+    public EnumNamedArrayAttribute(Type enumType)
     {
-        this.names = System.Enum.GetNames(names_enum_type);
+        this.names = Enum.GetNames(enumType);
+    }
+
+    public EnumNamedArrayAttribute(string[] names)
+    {
+        this.names = names;
     }
 }
