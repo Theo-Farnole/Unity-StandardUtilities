@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FancyObject : MonoBehaviour
 {
+    #region Fields
     [Header ("Rotation")]
     [SerializeField] private bool _shouldRotate;
     [Space]
@@ -16,7 +17,9 @@ public class FancyObject : MonoBehaviour
     [SerializeField] private float _translateDistance;
 
     private Vector3 _startingPosition;
+    #endregion
 
+    #region Methods
     void Start()
     {
         _startingPosition = transform.localPosition;
@@ -36,4 +39,11 @@ public class FancyObject : MonoBehaviour
             transform.localPosition = _startingPosition + pos;
         }
     }
+
+    public void ResetStartingPosition(Vector3 position)
+    {
+        transform.position = position;
+        _startingPosition = position;
+    }
+    #endregion
 }
