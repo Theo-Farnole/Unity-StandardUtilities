@@ -17,4 +17,22 @@ public static class Vector3Extension
         v1.y = Mathf.Clamp(v1.y, -Mathf.Abs(v2.y), Mathf.Abs(v2.y));
         v1.z = Mathf.Clamp(v1.z, -Mathf.Abs(v2.z), Mathf.Abs(v2.z));
     }
+
+    public static Vector3 SetX(this Vector3 v, float value)
+    {
+        v[0] = value;
+        return v;
+    }
+
+    public static Vector3 SetY(this Vector3 v, float value)
+    {
+        v[1] = value;
+        return v;
+    }
+
+    public static Vector3 SetZ(this Vector3 v, float value)
+    {
+        v[2] = value;
+        return v;
+    }
 }
