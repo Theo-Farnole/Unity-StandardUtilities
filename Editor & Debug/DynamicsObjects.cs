@@ -5,44 +5,37 @@ using UnityEngine;
 
 public class DynamicsObjects : Singleton<DynamicsObjects>
 {
-    // just add values to enum, in order to create new parents 
-    public enum ParentType
-    {
-        Enemies,
-        Bullets,
-        VFX
-    };
-
-    /////////////////////////////////////////////////////////
-    /// DO NOT TOUCH THE REST
-    /// If you make changes, it is at your own risk.
-    /// Made by Theo Farnole 06 feb 2019
-    /////////////////////////////////////////////////////////
-
     #region Internal
-    private List<Transform> _parents = new List<Transform>();
+    [SerializeField] private string[] _parentsTag;
+    private Dictionary<string, Transform> _parents;
 
     void Start()
     {
-        var types = Enum.GetValues(typeof(ParentType));
+        _parents = new Dictionary<string, Transform>();
 
         // create parents, modify their name, and set their parent
-        for (int i = 0; i < types.Length; i++)
+        for (int i = 0; i < _parentsTag.Length; i++)
         {
             Transform obj = new GameObject().transform;
-            obj.name = "Parent " + Enum.GetNames(typeof(ParentType))[i];
+            obj.name = "Parent " + _parentsTag[i];
             obj.SetParent(transform);
 
-            _parents.Add(obj);
+            _parents.Add(_parentsTag[i], obj);
         }
     }
 
     // set the Transform obj to the Transform parent which is equals to type
-    public void SetToParent(Transform obj, ParentType type)
+    public void SetToParent(Transform obj, string tag)
     {
 #if UNITY_EDITOR 
-        obj.parent = _parents[(int)type];
+        if (!_parents.ContainsKey(tag))
+        {
+            Debug.LogWarning("Parent type " + tag + " doesn't exists.");
+            return;
+        }
+
+        obj.parent = _parents[tag];
 #endif
     }
-#endregion
+    #endregion
 }
