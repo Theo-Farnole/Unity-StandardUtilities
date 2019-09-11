@@ -12,4 +12,9 @@ public static class ColorExtension
 
         return hexR + hexG + hexB;
     }
+
+    public static void SetAlpha(this Color c, float alpha)
+    {
+        c.a = alpha;
+    }
 }
