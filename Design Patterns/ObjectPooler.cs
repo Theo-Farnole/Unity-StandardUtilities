@@ -46,6 +46,7 @@ public class ObjectPooler : Singleton<ObjectPooler>
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
 
+        objectToSpawn.SetActive(true);
         objectToSpawn.GetComponent<IPooledObject>()?.OnObjectSpawn();
 
         return objectToSpawn;
