@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "StickWars/Camera Settings")]
+[CreateAssetMenu(menuName = "Utils/Camera Settings")]
 public class CameraShakeData : ScriptableObject
 {
     [SerializeField] private float _duration = 0.3f;
