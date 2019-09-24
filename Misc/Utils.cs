@@ -71,4 +71,24 @@ public static class Utils
         // Bottom
         Utils.DrawScreenRect(new Rect(rect.xMin, rect.yMax - thickness, rect.width, thickness), color);
     }
+
+    public static TArray[] ForceArraySize<TArray, TEnum>(TArray[] array) where TEnum : struct, System.Enum
+    {
+        int tEnumLength = Enum.GetValues(typeof(Owner)).Length;
+
+        // save old values
+        if (array == null) array = new TArray[tEnumLength];
+        TArray[] oldValues = array;
+
+        // create a new TEnum
+        array = new TArray[tEnumLength];
+
+        // find copy length
+        int copyLength = oldValues.Length;
+        if (copyLength > array.Length) copyLength = array.Length;
+
+        // then copy
+        Array.Copy(oldValues, array, copyLength);
+        return array;
+    }
 }
