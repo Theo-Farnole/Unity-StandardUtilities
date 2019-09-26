@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ObjectPooler : Singleton<ObjectPooler>
@@ -13,6 +14,7 @@ public class ObjectPooler : Singleton<ObjectPooler>
     }
 
     [SerializeField] private Pool[] _pools;
+
     private Dictionary<string, Queue<GameObject>> _poolDictionnary;
     private Dictionary<GameObject, Coroutine> _enqueueCoroutine;
     #endregion
@@ -25,6 +27,8 @@ public class ObjectPooler : Singleton<ObjectPooler>
 
         for (int i = 0; i < _pools.Length; i++)
         {
+            DynamicsObjects.Instance.AddParent(_pools[i].tag + "_pool");
+
             _poolDictionnary.Add(_pools[i].tag, new Queue<GameObject>());
         }
     }
@@ -37,10 +41,7 @@ public class ObjectPooler : Singleton<ObjectPooler>
             return null;
         }
 
-        if (_poolDictionnary[tag].Count == 0)
-        {
-            AddOneItemOnPool(tag);
-        }
+        if (_poolDictionnary[tag].Count == 0) InstantiateOneItem(tag);
 
         GameObject objectToSpawn = _poolDictionnary[tag].Dequeue();
         objectToSpawn.transform.position = position;
@@ -54,11 +55,13 @@ public class ObjectPooler : Singleton<ObjectPooler>
 
     public void EnqueueGameObject(string tag, GameObject toEnqueue)
     {
-        if (!_poolDictionnary[tag].Contains(toEnqueue))
-        {
-            _poolDictionnary[tag].Enqueue(toEnqueue);
-            toEnqueue.SetActive(false);
-        }
+        if (_poolDictionnary[tag].Contains(toEnqueue))
+            return;
+
+        toEnqueue.SetActive(false);
+        _poolDictionnary[tag].Enqueue(toEnqueue);
+
+        DynamicsObjects.Instance.SetToParent(toEnqueue.transform, tag + "_pool");
     }
 
     public void EnqueueGameObject(string tag, GameObject toEnqueue, float duration)
@@ -71,7 +74,7 @@ public class ObjectPooler : Singleton<ObjectPooler>
         _enqueueCoroutine[toEnqueue] = this.ExecuteAfterTime(duration, () => EnqueueGameObject(tag, toEnqueue));
     }
 
-    private void AddOneItemOnPool(string tag)
+    private void InstantiateOneItem(string tag)
     {
         if (!_poolDictionnary.ContainsKey(tag))
         {
@@ -79,18 +82,11 @@ public class ObjectPooler : Singleton<ObjectPooler>
             return;
         }
 
-        GameObject prefab = null;
+        GameObject prefab = Instantiate(_pools.First(x => x.tag == tag).prefab);
 
-        for (int i = 0; i < _pools.Length; i++)
-        {
-            if (_pools[i].tag == tag)
-            {
-                prefab = Instantiate(_pools[i].prefab);
-                prefab.SetActive(false);
-            }
-        }
+        if (prefab == null) return;
 
-        _poolDictionnary[tag].Enqueue(prefab);
+        EnqueueGameObject(tag, prefab);
     }
     #endregion
 }
