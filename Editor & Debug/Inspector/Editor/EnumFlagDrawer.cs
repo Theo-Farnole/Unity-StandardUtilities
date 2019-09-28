@@ -2,10 +2,11 @@
 using UnityEditor;
 using UnityEngine;
 
+// code from http://www.sharkbombs.com/2015/02/17/unity-editor-enum-flags-as-toggle-buttons/
+
 [CustomPropertyDrawer(typeof(EnumFlagAttribute))]
 public class EnumFlagsAttributeDrawer : PropertyDrawer
 {
-
     public override void OnGUI(Rect _position, SerializedProperty _property, GUIContent _label)
     {
         int buttonsIntValue = 0;
