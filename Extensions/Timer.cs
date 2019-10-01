@@ -20,7 +20,6 @@ public class Timer
         _coroutine = ownerOfCoroutine.StartCoroutine(TimerCoroutine(task, taskOnEnd, duration));
     }
 
-
     IEnumerator TimerCoroutine(Action<float> task, Action taskOnEnd, float duration)
     {
         float startingTime = Time.unscaledTime;
@@ -31,7 +30,11 @@ public class Timer
             float deltaTime = Time.unscaledTime - startingTime;
 
             time = Mathf.Lerp(0, 1, deltaTime / duration);
-            task?.Invoke(time);
+
+            if (float.IsNaN(time) == false)
+            {
+                task?.Invoke(time);
+            }
 
             yield return new WaitForEndOfFrame();
         } while (time < 1);
