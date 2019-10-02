@@ -18,6 +18,24 @@ public static class Vector3Extension
         v1.z = Mathf.Clamp(v1.z, -Mathf.Abs(v2.z), Mathf.Abs(v2.z));
     }
 
+    public static Vector3 GetClosestVector(this Vector3 currentPos, Vector3[] vectorsToCheck)
+    {
+        Vector3 closestVector = Vector3.one * Mathf.Infinity;
+        float minDist = Mathf.Infinity;
+
+        for (int i = 0; i < vectorsToCheck.Length; i++)
+        {
+            float dist = Vector3.Distance(vectorsToCheck[i], currentPos);
+
+            if (dist < minDist)
+            {
+                closestVector = vectorsToCheck[i];
+                minDist = dist;
+            }
+        }
+        return closestVector;
+    }
+
     public static Vector3 SetX(this Vector3 v, float value)
     {
         v[0] = value;

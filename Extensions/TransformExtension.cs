@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class TransformExtension
@@ -42,7 +40,7 @@ public static class TransformExtension
     /// <returns></returns>
     public static Transform GetClosestTransform(this Transform t, Collider[] colliders)
     {
-        var transforms = new Transform[colliders.Length];
+        Transform[] transforms = new Transform[colliders.Length];
 
         for (int i = 0; i < transforms.Length; i++)
         {
