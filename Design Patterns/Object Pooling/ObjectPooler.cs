@@ -20,7 +20,7 @@ public class ObjectPooler : Singleton<ObjectPooler>
     #endregion
 
     #region Methods
-    void Start()
+    void Awake()
     {
         _poolDictionnary = new Dictionary<string, Queue<GameObject>>();
         _enqueueCoroutine = new Dictionary<GameObject, Coroutine>();

@@ -8,15 +8,13 @@ public class DynamicsObjects : Singleton<DynamicsObjects>
     #region Fields
     [SerializeField] private string[] _parentsTag;
 
-    private Dictionary<string, Transform> _parents;
+    private Dictionary<string, Transform> _parents = new Dictionary<string, Transform>();
     #endregion
 
     #region Methods
     #region MonoBehaviour Callbacks
-    void Start()
+    void Awake()
     {
-        _parents = new Dictionary<string, Transform>();
-
         // create parents, modify their name, and set their parent
         for (int i = 0; i < _parentsTag.Length; i++)
         {
