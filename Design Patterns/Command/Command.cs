@@ -1,13 +1,7 @@
-﻿using UnityEngine;
-
-public abstract class Command
+﻿namespace CommandPattern
 {
-    protected GameObject _owner;
-
-    public Command(GameObject owner)
+    public abstract class Command
     {
-        _owner = owner;
+        public abstract void Execute();
     }
-
-    public abstract void Execute();
 }
