@@ -33,6 +33,13 @@ public class ObjectPooler : Singleton<ObjectPooler>
         }
     }
 
+    public GameObject SpawnFromPool(GameObject prefab, Vector3 position, Quaternion rotation)
+    {
+        string tag = _pools.Where(x => x.prefab == prefab).First().tag;
+
+        return SpawnFromPool(tag, position, rotation);
+    }
+
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
     {
         if (!_poolDictionnary.ContainsKey(tag))
@@ -51,6 +58,13 @@ public class ObjectPooler : Singleton<ObjectPooler>
         objectToSpawn.GetComponent<IPooledObject>()?.OnObjectSpawn();
 
         return objectToSpawn;
+    }
+
+    public void EnqueueGameObject(GameObject prefab, GameObject toEnqueue)
+    {
+        string tag = _pools.Where(x => x.prefab == prefab).First().tag;
+
+        EnqueueGameObject(tag, toEnqueue);
     }
 
     public void EnqueueGameObject(string tag, GameObject toEnqueue)
