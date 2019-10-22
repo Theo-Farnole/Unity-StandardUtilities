@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class TransformExtension
@@ -32,22 +33,24 @@ public static class TransformExtension
         return tMin;
     }
 
-    /// <summary>
-    /// Returns nearest transform from colliders args.
-    /// </summary>
-    /// <param name="t"></param>
-    /// <param name="colliders">List of colliders to check who's the nearest</param>
-    /// <returns></returns>
-    public static Transform GetClosestTransform(this Transform t, Collider[] colliders)
+    public static ObjectByDistance<T> GetClosestMonoBehaviour<T>(this Transform currentObject, T[] objectsToCheck) where T : MonoBehaviour
     {
-        Transform[] transforms = new Transform[colliders.Length];
+        Vector3 currentPos = currentObject.transform.position;
 
-        for (int i = 0; i < transforms.Length; i++)
+        T nearestObject = null;
+        float minDist = Mathf.Infinity;
+
+        for (int i = 0; i < objectsToCheck.Length; i++)
         {
-            transforms[i] = colliders[i].transform;
-        }
+            float dist = Vector3.Distance(objectsToCheck[i].transform.position, currentPos);
 
-        return GetClosestTransform(t, transforms);
+            if (dist < minDist)
+            {
+                nearestObject = objectsToCheck[i];
+                minDist = dist;
+            }
+        }
+        return new ObjectByDistance<T>(nearestObject, minDist);
     }
 
     /// <summary>
