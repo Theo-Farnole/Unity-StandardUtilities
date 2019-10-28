@@ -10,11 +10,9 @@ public static class GraphicExtension
     /// <summary>
     /// Fade graphic component.
     /// </summary>
-    public static void Fade(this Graphic g, FadeType fadeType, float timeToFadout)
+    public static Coroutine Fade(this Graphic g, FadeType fadeType, float timeToFadout)
     {
-        //g.StopAllCoroutines();
-
-        new Timer(g, timeToFadout, (float f) =>
+        return new Timer(g, timeToFadout, (float f) =>
         {
             var color = g.color;
 
@@ -30,7 +28,7 @@ public static class GraphicExtension
             }
 
             g.color = color;
-        });
+        }).Coroutine;
     }
 
     public static void SetTransparency(this Graphic g, float alpha)
