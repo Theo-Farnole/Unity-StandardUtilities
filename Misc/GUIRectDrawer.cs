@@ -7,7 +7,7 @@ using UnityEngine;
 // from
 // https://hyunkell.com/blog/rts-style-unit-selection-in-unity-5/
 
-public static class Utils
+public static class GUIRectDrawer
 {
     static Texture2D _whiteTexture;
     public static Texture2D WhiteTexture
@@ -63,12 +63,12 @@ public static class Utils
     public static void DrawScreenRectBorder(Rect rect, float thickness, Color color)
     {
         // Top
-        Utils.DrawScreenRect(new Rect(rect.xMin, rect.yMin, rect.width, thickness), color);
+        DrawScreenRect(new Rect(rect.xMin, rect.yMin, rect.width, thickness), color);
         // Left
-        Utils.DrawScreenRect(new Rect(rect.xMin, rect.yMin, thickness, rect.height), color);
+        DrawScreenRect(new Rect(rect.xMin, rect.yMin, thickness, rect.height), color);
         // Right
-        Utils.DrawScreenRect(new Rect(rect.xMax - thickness, rect.yMin, thickness, rect.height), color);
+        DrawScreenRect(new Rect(rect.xMax - thickness, rect.yMin, thickness, rect.height), color);
         // Bottom
-        Utils.DrawScreenRect(new Rect(rect.xMin, rect.yMax - thickness, rect.width, thickness), color);
+        DrawScreenRect(new Rect(rect.xMin, rect.yMax - thickness, rect.width, thickness), color);
     }
 }
