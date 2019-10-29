@@ -31,7 +31,7 @@ public static class GraphicExtension
         }).Coroutine;
     }
 
-    public static void SetTransparency(this Graphic g, float alpha)
+    public static void SetAlpha(this Graphic g, float alpha)
     {
         Color c = g.color;
         c.a = alpha;

@@ -2,16 +2,16 @@
 using System.Collections;
 
 /// <author>
-/// That's not my work, but I've lost the link !
+/// That's not my work, but I've lost the link ! :/
 /// </author>
-/// 
+
 [RequireComponent(typeof(LineRenderer))]
 public class DrawCircle : MonoBehaviour
 {
     [Range(0, 50)] public int segments = 50;
     [Range(0, 5)] public float xradius = 5;
     [Range(0, 5)] public float yradius = 5;
-    LineRenderer line;
+    private LineRenderer line;
 
     void Start()
     {

@@ -33,20 +33,20 @@ public static class TransformExtension
         return tMin;
     }
 
-    public static ObjectByDistance<T> GetClosestMonoBehaviour<T>(this Transform currentObject, T[] objectsToCheck) where T : MonoBehaviour
+    public static ObjectByDistance<T> GetClosestComponent<T>(this Transform currentObject, T[] components) where T : MonoBehaviour
     {
         Vector3 currentPos = currentObject.transform.position;
 
         T nearestObject = null;
         float minDist = Mathf.Infinity;
 
-        for (int i = 0; i < objectsToCheck.Length; i++)
+        for (int i = 0; i < components.Length; i++)
         {
-            float dist = Vector3.Distance(objectsToCheck[i].transform.position, currentPos);
+            float dist = Vector3.Distance(components[i].transform.position, currentPos);
 
             if (dist < minDist)
             {
-                nearestObject = objectsToCheck[i];
+                nearestObject = components[i];
                 minDist = dist;
             }
         }

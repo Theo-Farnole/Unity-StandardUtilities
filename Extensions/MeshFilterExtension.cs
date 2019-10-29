@@ -4,9 +4,9 @@ using UnityEngine;
 
 public static class MeshFilterExtension
 {
-	public static void TurnIntoLowPoly(this MeshFilter mf)
+	public static void TurnIntoLowPoly(this MeshFilter meshFilter)
     {
-        var mesh = mf.sharedMesh;
+        var mesh = meshFilter.sharedMesh;
 
         //Get the original vertices of the gameobject's mesh
         Vector3[] originalVertices = mesh.vertices;

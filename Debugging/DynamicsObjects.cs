@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Keeps a clean hierarchy in the Editor while the game runs.
+/// Set parents to new instantited objects.
+/// </summary>
 public class DynamicsObjects : Singleton<DynamicsObjects>
 {
     #region Fields
@@ -24,9 +28,8 @@ public class DynamicsObjects : Singleton<DynamicsObjects>
     #endregion
 
     /// <summary>
-    /// Instantiate parent then update name with tabg.
+    /// Instantiate parent, then update name with tag.
     /// </summary>
-    /// <param name="tag"></param>
     public void AddParent(string tag)
     {
         Transform obj = new GameObject().transform;

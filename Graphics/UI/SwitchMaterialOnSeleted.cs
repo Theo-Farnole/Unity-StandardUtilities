@@ -19,19 +19,12 @@ public class SwitchMaterialOnSeleted : MonoBehaviour
     void Awake()
     {
         _text = GetComponent<TextMeshProUGUI>();
-
-        if (_selectedObject == null)
-        {
-            _selectedObject = transform.parent.gameObject;
-        }
     }
 
     void Update()
     {
-        if (!EventSystem.current)
-            return;
-
-        if (EventSystem.current.currentSelectedGameObject == _selectedObject)
+        // If it selected by EventSystem
+        if (EventSystem.current?.currentSelectedGameObject == _selectedObject)
         {
             _text.fontSharedMaterial = _selectedMaterial;
         }

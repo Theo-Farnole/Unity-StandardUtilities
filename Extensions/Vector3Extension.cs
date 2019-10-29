@@ -11,29 +11,29 @@ public static class Vector3Extension
         v.z = Mathf.Clamp(v.z, min, max);
     }
 
-    public static void Clamp(this Vector3 v1, Vector3 v2)
+    public static void Clamp(this Vector3 v1, Vector3 min, Vector3 max)
     {
-        v1.x = Mathf.Clamp(v1.x, -Mathf.Abs(v2.x), Mathf.Abs(v2.x));
-        v1.y = Mathf.Clamp(v1.y, -Mathf.Abs(v2.y), Mathf.Abs(v2.y));
-        v1.z = Mathf.Clamp(v1.z, -Mathf.Abs(v2.z), Mathf.Abs(v2.z));
+        v1.x = Mathf.Clamp(v1.x, min.x, max.x);
+        v1.y = Mathf.Clamp(v1.y, min.y, max.y);
+        v1.z = Mathf.Clamp(v1.z, min.z, max.z);
     }
 
-    public static Vector3 GetClosestVector(this Vector3 currentPos, Vector3[] vectorsToCheck)
+    public static Vector3 GetClosestPoint(this Vector3 currentPosition, Vector3[] points)
     {
-        Vector3 closestVector = Vector3.one * Mathf.Infinity;
-        float minDist = Mathf.Infinity;
+        Vector3 closestPoint = Vector3.one * Mathf.Infinity;
+        float minimunDistance = Mathf.Infinity;
 
-        for (int i = 0; i < vectorsToCheck.Length; i++)
+        for (int i = 0; i < points.Length; i++)
         {
-            float dist = Vector3.Distance(vectorsToCheck[i], currentPos);
+            float distance = Vector3.Distance(points[i], currentPosition);
 
-            if (dist < minDist)
+            if (distance < minimunDistance)
             {
-                closestVector = vectorsToCheck[i];
-                minDist = dist;
+                closestPoint = points[i];
+                minimunDistance = distance;
             }
         }
-        return closestVector;
+        return closestPoint;
     }
 
     public static Vector3 SetX(this Vector3 v, float value)

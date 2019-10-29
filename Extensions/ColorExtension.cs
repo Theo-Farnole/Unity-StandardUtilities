@@ -15,6 +15,6 @@ public static class ColorExtension
 
     public static void SetAlpha(this Color c, float alpha)
     {
-        c.a = alpha;
+        c = new Color(c.r, c.g, c.b, alpha);
     }
 }

@@ -7,15 +7,15 @@ public static class GizmosExtension
     /// <summary>
     /// Draw Rect in with Gizmos line.
     /// </summary>
-    public static void DrawRect(Rect r)
+    public static void DrawWirefameRect(Rect r)
     {
-        DrawRect(r, Vector3.zero);
+        DrawWireframeRect(r, Vector3.zero);
     }
 
     /// <summary>
     /// Draw Rect in with Gizmos line.
     /// </summary>
-    public static void DrawRect(Rect r, Vector3 offset)
+    public static void DrawWireframeRect(Rect r, Vector3 offset)
     {
         offset.z = 0;
 
@@ -28,7 +28,7 @@ public static class GizmosExtension
     /// <summary>
     /// Draw gizmos line without Z axis.
     /// </summary>
-    public static void Draw2DLine(Vector2 from, Vector2 to)
+    public static void DrawLine2D(Vector2 from, Vector2 to)
     {
         Gizmos.DrawLine(from, to);
     }

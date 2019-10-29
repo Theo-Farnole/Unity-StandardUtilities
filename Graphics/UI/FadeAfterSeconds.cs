@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Graphic))]
 public class FadeAfterSeconds : MonoBehaviour
 {
     [SerializeField] private float _timeBeforeFade = 1;
@@ -15,17 +16,17 @@ public class FadeAfterSeconds : MonoBehaviour
     {
         Graphic graphic = GetComponent<Graphic>();
 
-        // set alpha to 0
-        if (_fadeType == FadeType.FadeIn)
+        switch (_fadeType)
         {
-            var color = graphic.color;
-            color.a = 0;
-            graphic.color = color;
+            case FadeType.FadeIn:
+                graphic.SetAlpha(0);
+                break;
+
+            case FadeType.FadeOut:
+                graphic.SetAlpha(1);
+                break;
         }
 
-        if (graphic != null)
-        {
-            this.ExecuteAfterTime(_timeBeforeFade, () => graphic.Fade(_fadeType, _fadeDuration));
-        }
+        this.ExecuteAfterTime(_timeBeforeFade, () => graphic.Fade(_fadeType, _fadeDuration));
     }
 }

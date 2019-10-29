@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateFollow : OwnerState<Transform>
+public class StateFollow : OwnedState<Transform>
 {
     public readonly float DISTANCE_THRESHOLD = 0.05f;
 

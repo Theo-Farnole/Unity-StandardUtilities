@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Manage Object Pooling.
+/// </summary>
 public class ObjectPooler : Singleton<ObjectPooler>
 {
     #region Fields
@@ -13,44 +16,41 @@ public class ObjectPooler : Singleton<ObjectPooler>
         public GameObject prefab;
     }
 
-    [SerializeField] private Pool[] _pools;
+    [SerializeField] private Pool[] _poolsUserInput;
 
-    private Dictionary<string, Queue<GameObject>> _poolDictionnary;
-    private Dictionary<GameObject, Coroutine> _enqueueCoroutine;
+    private Dictionary<string, Queue<GameObject>> _pools = new Dictionary<string, Queue<GameObject>>();
+    private Dictionary<GameObject, Coroutine> _enqueueCoroutines = new Dictionary<GameObject, Coroutine>();
     #endregion
 
     #region Methods
     void Awake()
     {
-        _poolDictionnary = new Dictionary<string, Queue<GameObject>>();
-        _enqueueCoroutine = new Dictionary<GameObject, Coroutine>();
-
-        for (int i = 0; i < _pools.Length; i++)
+        // create Dictionnary from Pools Array (because Unity doesn't Dictionnary)
+        for (int i = 0; i < _poolsUserInput.Length; i++)
         {
-            DynamicsObjects.Instance.AddParent(_pools[i].tag + "_pool");
-
-            _poolDictionnary.Add(_pools[i].tag, new Queue<GameObject>());
+            DynamicsObjects.Instance?.AddParent(_poolsUserInput[i].tag + "_pool");
+            _pools.Add(_poolsUserInput[i].tag, new Queue<GameObject>());
         }
     }
 
     public GameObject SpawnFromPool(GameObject prefab, Vector3 position, Quaternion rotation)
     {
-        string tag = _pools.Where(x => x.prefab == prefab).First().tag;
+        string tag = _poolsUserInput.Where(x => x.prefab == prefab).First().tag;
 
         return SpawnFromPool(tag, position, rotation);
     }
 
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
     {
-        if (!_poolDictionnary.ContainsKey(tag))
+        if (!_pools.ContainsKey(tag))
         {
             Debug.LogWarning("Pool with tag " + tag + " doesn't exist.");
             return null;
         }
 
-        if (_poolDictionnary[tag].Count == 0) InstantiateOneItem(tag);
+        if (_pools[tag].Count == 0) InstantiateOneItem(tag);
 
-        GameObject objectToSpawn = _poolDictionnary[tag].Dequeue();
+        GameObject objectToSpawn = _pools[tag].Dequeue();
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
 
@@ -62,41 +62,44 @@ public class ObjectPooler : Singleton<ObjectPooler>
 
     public void EnqueueGameObject(GameObject prefab, GameObject toEnqueue)
     {
-        string tag = _pools.Where(x => x.prefab == prefab).First().tag;
+        string tag = _poolsUserInput.Where(x => x.prefab == prefab).First().tag;
 
         EnqueueGameObject(tag, toEnqueue);
     }
 
     public void EnqueueGameObject(string tag, GameObject toEnqueue)
     {
-        if (_poolDictionnary[tag].Contains(toEnqueue))
+        if (_pools[tag].Contains(toEnqueue))
             return;
 
         toEnqueue.SetActive(false);
-        _poolDictionnary[tag].Enqueue(toEnqueue);
+        _pools[tag].Enqueue(toEnqueue);
 
-        DynamicsObjects.Instance.SetToParent(toEnqueue.transform, tag + "_pool");
+        DynamicsObjects.Instance?.SetToParent(toEnqueue.transform, tag + "_pool");
     }
 
     public void EnqueueGameObject(string tag, GameObject toEnqueue, float duration)
     {
-        if (_enqueueCoroutine.ContainsKey(toEnqueue))
+        if (_enqueueCoroutines.ContainsKey(toEnqueue))
         {
-            StopCoroutine(_enqueueCoroutine[toEnqueue]);
+            StopCoroutine(_enqueueCoroutines[toEnqueue]);
         }
 
-        _enqueueCoroutine[toEnqueue] = this.ExecuteAfterTime(duration, () => EnqueueGameObject(tag, toEnqueue));
+        _enqueueCoroutines[toEnqueue] = this.ExecuteAfterTime(duration, () => EnqueueGameObject(tag, toEnqueue));
     }
 
+    /// <summary>
+    /// If pool empty, instantiate a prefab.
+    /// </summary>
     private void InstantiateOneItem(string tag)
     {
-        if (!_poolDictionnary.ContainsKey(tag))
+        if (!_pools.ContainsKey(tag))
         {
             Debug.LogWarning("Pool with tag " + tag + " doesn't exists.");
             return;
         }
 
-        GameObject prefab = Instantiate(_pools.First(x => x.tag == tag).prefab);
+        GameObject prefab = Instantiate(_poolsUserInput.First(x => x.tag == tag).prefab);
 
         if (prefab == null) return;
 
