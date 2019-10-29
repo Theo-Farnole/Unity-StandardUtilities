@@ -21,7 +21,7 @@ public static class MonoBehaviourExtension
     /// </summary>
     static IEnumerator Coroutine(float time, Action task)
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSecondsRealtime(time);
 
         task();
     }
