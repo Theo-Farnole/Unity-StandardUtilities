@@ -2,28 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils
-{
-    public static class SceneManagement
-    {
-        private static SceneManagementData _data;
 
-        public static SceneManagementData Data
+public static class SceneManagement
+{
+    private static readonly string DATA_NAME = "Scene Management Data";
+    private static SceneManagementData _data;
+
+    public static SceneManagementData Data
+    {
+        get
         {
-            get
+            if (_data == null)
             {
+                Debug.LogFormat("Loading \"{0}\" file from Resources folder...", DATA_NAME);
+                _data = Resources.Load<SceneManagementData>(DATA_NAME);
+
                 if (_data == null)
                 {
-                    _data = Resources.Load<SceneManagementData>("Scenes Data");
-
-                    if (_data == null)
-                    {
-                        Debug.LogError("Can't load SceneManagement Data named \"Scenes Data\" in Resources folder.");
-                    }
+                    Debug.LogErrorFormat("Loading failed of \"{0}\".. Make sure you have well written Resources folder.", DATA_NAME);
                 }
-
-                return _data;
             }
+
+            return _data;
         }
     }
 }
+
