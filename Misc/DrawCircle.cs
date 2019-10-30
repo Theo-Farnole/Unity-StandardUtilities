@@ -9,13 +9,22 @@ using System.Collections;
 public class DrawCircle : MonoBehaviour
 {
     [Range(0, 50)] public int segments = 50;
-    [Range(0, 5)] public float xradius = 5;
-    [Range(0, 5)] public float yradius = 5;
+    public float xradius = 5;
+    public float yradius = 5;
+
     private LineRenderer line;
 
     void Start()
     {
         UpdateCircle();    
+    }
+
+    public void UpdateCircle(float radius)
+    {
+        xradius = radius;
+        yradius = radius;
+
+        UpdateCircle();
     }
 
     public void UpdateCircle()
