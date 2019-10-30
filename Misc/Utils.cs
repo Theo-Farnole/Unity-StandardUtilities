@@ -19,5 +19,17 @@ namespace Utils
 
             return subclasses;
         }
+
+        public static void CaptureCursor()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
+        public static void ReleaseCursor()
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 }
