@@ -5,17 +5,19 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
-[CreateAssetMenu(menuName = "Utils/Scene Management Data")]
-public class SceneManagementData : ScriptableObject
+namespace Utils
 {
-    [SerializeField] private string _scenePath = "Assets/Scenes/";
-    [Space]
-    [SerializeField] private SceneAsset[] _levelScenesName;
-    [SerializeField] private SceneAsset[] _gameLogicSceneName;
+    [CreateAssetMenu(menuName = "Utils/Scene Management Data")]
+    public class SceneManagementData : ScriptableObject
+    {
+        [SerializeField] private string _scenePath = "Assets/Scenes/";
+        [Space]
+        [SerializeField] private SceneAsset[] _levelScenesName;
+        [SerializeField] private SceneAsset[] _gameLogicSceneName;
 
-    public string ScenePath { get => _scenePath; }
-    public string[] LevelScenesName { get => _levelScenesName.Select(x => x.name).ToArray(); }
-    public string[] GameLogicSceneName { get => _gameLogicSceneName.Select(x => x.name).ToArray(); }
+        public string ScenePath { get => _scenePath; }
+        public string[] LevelScenesName { get => _levelScenesName.Select(x => x.name).ToArray(); }
+        public string[] GameLogicSceneName { get => _gameLogicSceneName.Select(x => x.name).ToArray(); }
+    }
 }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,10 +7,13 @@ using UnityEngine.SceneManagement;
 
 namespace Utils
 {
+    public delegate void OnSceneActivation();
 
     public static class SceneManagement
     {
         #region Fields
+        public static OnSceneActivation OnSceneActivation;
+
         private static readonly string DATA_NAME = "Scene Management Data";
 
         private static SceneManagementData _data;
@@ -17,7 +21,7 @@ namespace Utils
         private static List<AsyncOperation> _asyncGameLogic = new List<AsyncOperation>();
         private static List<AsyncOperation> _asyncUnload = new List<AsyncOperation>();
 
-        private static GameObject _loadingHandler; // owns loading coroutine
+        private static LoadingHandler _loadingHandler; // owns loading coroutine
         #endregion
 
         #region Properties
@@ -53,32 +57,42 @@ namespace Utils
         /// </summary>
         public static void LoadScene(string level)
         {
-            // async load LEVEL
+            // load LEVEL
             SceneManager.LoadScene(level);
 
             // async load GAME_LOGIC
-            _asyncGameLogic.Clear();
-
-            for (int i = 0; i < Data.GameLogicSceneName.Length; i++)
+            if (Data.LevelScenesName.Contains(level))
             {
-                _asyncGameLogic.Add(SceneManager.LoadSceneAsync(_data.GameLogicSceneName[0], LoadSceneMode.Additive));
-                _asyncGameLogic[i].allowSceneActivation = false;
+                _asyncGameLogic.Clear();
+
+                for (int i = 0; i < Data.GameLogicSceneName.Length; i++)
+                {
+                    _asyncGameLogic.Add(SceneManager.LoadSceneAsync(_data.GameLogicSceneName[0], LoadSceneMode.Additive));
+                    _asyncGameLogic[i].allowSceneActivation = false;
+                }
             }
 
             // start loading handler
-            CreateLoadingManager();
-            _loadingHandler.GetComponent<LoadingHandler>().StartCoroutine(LoadingHandler());
+            CreateLoadingHandler();
+            _loadingHandler.StartCoroutine(LoadingHandler());
+        }
+
+        public static void LoadScene(string level, float fadeDuration, Color fadeColor)
+        {
+            CreateLoadingHandler();
+
+            FadeSystem.FadeBlinkScene(fadeDuration);
+            _loadingHandler.ExecuteAfterTime(fadeDuration / 2, () => LoadScene(level));
         }
         #endregion
 
         #region Private Methods
-        static void CreateLoadingManager()
+        static void CreateLoadingHandler()
         {
             if (_loadingHandler != null)
                 return;
 
-            _loadingHandler = new GameObject();
-            _loadingHandler.AddComponent<LoadingHandler>();
+            _loadingHandler = new GameObject().AddComponent<LoadingHandler>();
             UnityEngine.Object.DontDestroyOnLoad(_loadingHandler);
         }
 
@@ -118,6 +132,8 @@ namespace Utils
             {
                 _asyncUnload[i].allowSceneActivation = true;
             }
+
+            OnSceneActivation?.Invoke();
         }
         #endregion
         #endregion
