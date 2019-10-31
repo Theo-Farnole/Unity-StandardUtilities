@@ -12,12 +12,24 @@ namespace Utils
     {
         [SerializeField] private string _scenePath = "Assets/Scenes/";
         [Space]
-        [SerializeField] private string[] _levelScenesName;
-        [SerializeField] private string[] _gameLogicSceneName;
+#if UNITY_EDITOR
+        [SerializeField] private SceneAsset[] _levelScenesAssets = new SceneAsset[0];
+        [SerializeField] private SceneAsset[] _gameLogicScenesAssets = new SceneAsset[0];
+#endif
+        private string[] _levelScenesName;
+        private string[] _gameLogicSceneName;
 
         public string ScenePath { get => _scenePath; }
         public string[] LevelScenesName { get => _levelScenesName; }
         public string[] GameLogicSceneName { get => _gameLogicSceneName; }
+
+#if UNITY_EDITOR
+        void OnValidate()
+        {
+            _levelScenesName = _levelScenesAssets.Select(x => x.name).ToArray();
+            _gameLogicSceneName = _gameLogicScenesAssets.Select(x => x.name).ToArray();
+        }
+#endif
     }
 }
 
