@@ -7,12 +7,12 @@ using UnityEngine;
 
 namespace Utils
 {
-    public static class Utils
+    public static class UtilsClass
     {
         public static IEnumerable<Type> GetSubclass<T>()
         {
             Type parentType = typeof(T);
-            Assembly assembly = Assembly.GetExecutingAssembly();
+            Assembly assembly = typeof(T).Assembly;
             Type[] types = assembly.GetTypes();
 
             IEnumerable<Type> subclasses = types.Where(t => t.IsSubclassOf(parentType));
