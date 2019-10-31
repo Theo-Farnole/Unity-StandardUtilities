@@ -2,7 +2,6 @@
 "name": "com.lortedo29.utils",
 "version": "1.0.0",
 "displayName": "Utils",
-"description": "MyBox is a set of attributes, tools and extensions for Unity",
 
 "unity": "2019.1",
 "dependencies": {},
