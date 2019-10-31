@@ -1,6 +1,7 @@
 {
-    "name": "MyBox",
+    "name": "Utils",
     "references": [],
+    "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
