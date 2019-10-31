@@ -12,12 +12,12 @@ namespace Utils
     {
         [SerializeField] private string _scenePath = "Assets/Scenes/";
         [Space]
-        [SerializeField] private SceneAsset[] _levelScenesName;
-        [SerializeField] private SceneAsset[] _gameLogicSceneName;
+        [SerializeField] private string[] _levelScenesName;
+        [SerializeField] private string[] _gameLogicSceneName;
 
         public string ScenePath { get => _scenePath; }
-        public string[] LevelScenesName { get => _levelScenesName.Select(x => x.name).ToArray(); }
-        public string[] GameLogicSceneName { get => _gameLogicSceneName.Select(x => x.name).ToArray(); }
+        public string[] LevelScenesName { get => _levelScenesName; }
+        public string[] GameLogicSceneName { get => _gameLogicSceneName; }
     }
 }
 
