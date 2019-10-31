@@ -1,8 +1,9 @@
-﻿using TMPro;
+﻿#if TMP_DEFINED
+
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-#if HAS_TMP
 
 /// <author>
 /// http://www.demonixis.net/ajout-du-multilingue-dans-votre-jeux-avec-unity-3d/

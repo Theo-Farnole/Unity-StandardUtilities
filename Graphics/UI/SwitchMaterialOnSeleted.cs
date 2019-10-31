@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿#if TMP_DEFINED
+
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -34,3 +36,5 @@ public class SwitchMaterialOnSeleted : MonoBehaviour
         }
     }
 }
+
+#endif
