@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 namespace Utils.Managers
 {
@@ -14,9 +15,9 @@ namespace Utils.Managers
         #region Fields
         public static OnSceneActivation OnSceneActivation;
 
-        private static readonly string DATA_NAME = "Scene Management Data";
+        private static readonly string DATA_NAME = "SceneManager Data";
 
-        private static SceneManagerDAta _data;
+        private static SceneManagerData _data;
 
         private static List<AsyncOperation> _asyncGameLogic = new List<AsyncOperation>();
         private static List<AsyncOperation> _asyncUnload = new List<AsyncOperation>();
@@ -25,18 +26,28 @@ namespace Utils.Managers
         #endregion
 
         #region Properties
-        public static SceneManagerDAta Data
+        public static SceneManagerData Data
         {
             get
             {
                 if (_data == null)
                 {
                     Debug.LogFormat("Loading \"{0}\" file from Resources folder...", DATA_NAME);
-                    _data = Resources.Load<SceneManagerDAta>(DATA_NAME);
+                    _data = Resources.Load<SceneManagerData>(DATA_NAME);
 
                     if (_data == null)
                     {
+#if UNITY_EDITOR
+                        _data = ScriptableObject.CreateInstance<SceneManagerData>();
+
+                        AssetDatabase.CreateFolder("Assets", "Resources");
+                        AssetDatabase.CreateAsset(_data, "Assets/Resources/" + DATA_NAME + ".asset");
+                        AssetDatabase.SaveAssets();
+
+                        Debug.LogFormat("Unable to find {0}. Creating it...", DATA_NAME);
+#else
                         Debug.LogErrorFormat("Loading failed of \"{0}\".. Make sure you have well written Resources folder.", DATA_NAME);
+#endif
                     }
                 }
 

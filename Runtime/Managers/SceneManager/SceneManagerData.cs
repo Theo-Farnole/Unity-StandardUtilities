@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 
 namespace Utils.Managers
 {
-    [CreateAssetMenu(menuName = "Utils/SceneManager Data")]
-    public class SceneManagerDAta : ScriptableObject
+    [CreateAssetMenu(menuName = "Utils/SceneManager Data", fileName = "SceneManager Data")]
+    public class SceneManagerData : ScriptableObject
     {
         [SerializeField] private string _scenePath = "Assets/Scenes/";
         [Space]
