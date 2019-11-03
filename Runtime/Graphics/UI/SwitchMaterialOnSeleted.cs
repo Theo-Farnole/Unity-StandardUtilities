@@ -6,33 +6,36 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(TextMeshProUGUI))]
-public class SwitchMaterialOnSeleted : MonoBehaviour
+namespace Utils
 {
-    #region Fields
-    [SerializeField] private GameObject _selectedObject = null;
-    [Space]
-    [SerializeField] private Material _selectedMaterial;
-    [SerializeField] private Material _unselectMaterial;
-
-    private TextMeshProUGUI _text;
-    #endregion
-
-    void Awake()
+    [RequireComponent(typeof(TextMeshProUGUI))]
+    public class SwitchMaterialOnSeleted : MonoBehaviour
     {
-        _text = GetComponent<TextMeshProUGUI>();
-    }
+        #region Fields
+        [SerializeField] private GameObject _selectedObject = null;
+        [Space]
+        [SerializeField] private Material _selectedMaterial;
+        [SerializeField] private Material _unselectMaterial;
 
-    void Update()
-    {
-        // If it selected by EventSystem
-        if (EventSystem.current?.currentSelectedGameObject == _selectedObject)
+        private TextMeshProUGUI _text;
+        #endregion
+
+        void Awake()
         {
-            _text.fontSharedMaterial = _selectedMaterial;
+            _text = GetComponent<TextMeshProUGUI>();
         }
-        else
+
+        void Update()
         {
-            _text.fontSharedMaterial = _unselectMaterial;
+            // If it selected by EventSystem
+            if (EventSystem.current?.currentSelectedGameObject == _selectedObject)
+            {
+                _text.fontSharedMaterial = _selectedMaterial;
+            }
+            else
+            {
+                _text.fontSharedMaterial = _unselectMaterial;
+            }
         }
     }
 }

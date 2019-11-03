@@ -1,6 +1,7 @@
-﻿using UnityEngine;
-
-public interface IPooledObject 
+﻿namespace Utils.Pattern
 {
-    void OnObjectSpawn();
+    public interface IPooledObject
+    {
+        void OnObjectSpawn();
+    }
 }

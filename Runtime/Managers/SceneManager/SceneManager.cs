@@ -5,18 +5,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Utils
+namespace Utils.Managers
 {
     public delegate void OnSceneActivation();
 
-    public static class SceneManagement
+    public static class SceneManager
     {
         #region Fields
         public static OnSceneActivation OnSceneActivation;
 
         private static readonly string DATA_NAME = "Scene Management Data";
 
-        private static SceneManagementData _data;
+        private static SceneManagerDAta _data;
 
         private static List<AsyncOperation> _asyncGameLogic = new List<AsyncOperation>();
         private static List<AsyncOperation> _asyncUnload = new List<AsyncOperation>();
@@ -25,14 +25,14 @@ namespace Utils
         #endregion
 
         #region Properties
-        public static SceneManagementData Data
+        public static SceneManagerDAta Data
         {
             get
             {
                 if (_data == null)
                 {
                     Debug.LogFormat("Loading \"{0}\" file from Resources folder...", DATA_NAME);
-                    _data = Resources.Load<SceneManagementData>(DATA_NAME);
+                    _data = Resources.Load<SceneManagerDAta>(DATA_NAME);
 
                     if (_data == null)
                     {
@@ -49,7 +49,7 @@ namespace Utils
         #region Public Methods
         public static void ReloadScene()
         {
-            LoadScene(SceneManager.GetActiveScene().name);
+            LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         }
 
         /// <summary>
@@ -67,7 +67,9 @@ namespace Utils
 
                 for (int i = 0; i < Data.GameLogicSceneName.Length; i++)
                 {
-                    _asyncGameLogic.Add(SceneManager.LoadSceneAsync(_data.GameLogicSceneName[0], LoadSceneMode.Additive));
+                    var ao = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(_data.GameLogicSceneName[0], LoadSceneMode.Additive);
+
+                    _asyncGameLogic.Add(ao);
                     _asyncGameLogic[i].allowSceneActivation = false;
                 }
             }

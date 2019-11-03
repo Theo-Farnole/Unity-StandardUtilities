@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Utils
+namespace Utils.Managers
 {
     public static class FadeSystem
     {
@@ -66,11 +66,9 @@ namespace Utils
         {
             Fade(FadeType.FadeIn, duration / 2, color);
 
-            SceneManagement.OnSceneActivation += () =>
+            SceneManager.OnSceneActivation += () =>
             {
                 Fade(FadeType.FadeOut, duration / 2, color);
-
-                SceneManagement.OnSceneActivation -= () => Fade(FadeType.FadeOut, duration / 2, color);
             };
         }
         #endregion

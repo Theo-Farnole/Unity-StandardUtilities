@@ -7,14 +7,17 @@ using UnityEngine.UI;
 // code from
 // https://gist.github.com/EmpireWorld/2103b803583ac6f615f92434f254d5be
 
-[RequireComponent(typeof(Image))]
-public class ImageLoader : MonoBehaviour
+namespace Utils
 {
-    public string url = string.Empty;
-
-    async void Start()
+    [RequireComponent(typeof(Image))]
+    public class ImageLoader : MonoBehaviour
     {
-        Texture2D texture = await url.UrlToTexture();
-        GetComponent<Image>().sprite = texture.ToSprite();
+        public string url = string.Empty;
+
+        async void Start()
+        {
+            Texture2D texture = await url.UrlToTexture();
+            GetComponent<Image>().sprite = texture.ToSprite();
+        }
     }
 }

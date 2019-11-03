@@ -5,17 +5,20 @@ using UnityEngine;
 /// https://answers.unity.com/questions/1589226/showing-an-array-with-enum-as-keys-in-the-property.html
 /// </author>
 
-public class EnumNamedArrayAttribute : PropertyAttribute
+namespace Utils.Inspector
 {
-    public string[] names;
-
-    public EnumNamedArrayAttribute(Type enumType)
+    public class EnumNamedArrayAttribute : PropertyAttribute
     {
-        this.names = Enum.GetNames(enumType);
-    }
+        public string[] names;
 
-    public EnumNamedArrayAttribute(string[] names)
-    {
-        this.names = names;
+        public EnumNamedArrayAttribute(Type enumType)
+        {
+            this.names = Enum.GetNames(enumType);
+        }
+
+        public EnumNamedArrayAttribute(string[] names)
+        {
+            this.names = names;
+        }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils.Management.UI
+namespace Utils.Managers
 {
     [System.Serializable]
     public abstract class Panel

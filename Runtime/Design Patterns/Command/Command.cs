@@ -1,4 +1,4 @@
-﻿namespace CommandPattern
+﻿namespace Utils.Pattern
 {
     public abstract class Command
     {

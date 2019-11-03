@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct ObjectByDistance<T>
+namespace Utils
 {
-    public T Object { get; set; }
-    public float Distance { get; set; }
-
-    public ObjectByDistance(T distanceObject, float distance)
+    public struct ObjectByDistance<T>
     {
-        this.Object = distanceObject;
-        this.Distance = distance;
+        public T Object { get; set; }
+        public float Distance { get; set; }
+
+        public ObjectByDistance(T distanceObject, float distance)
+        {
+            this.Object = distanceObject;
+            this.Distance = distance;
+        }
     }
 }

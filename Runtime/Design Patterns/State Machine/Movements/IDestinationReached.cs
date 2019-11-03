@@ -1,4 +1,8 @@
-﻿public interface IDestinationReached
+﻿
+namespace Utils.Pattern
 {
-    void OnDestinationReached();
+    public interface IDestinationReached
+    {
+        void OnDestinationReached();
+    }
 }

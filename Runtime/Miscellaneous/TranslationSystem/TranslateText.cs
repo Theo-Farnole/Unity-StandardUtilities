@@ -9,40 +9,43 @@ using UnityEngine.UI;
 /// http://www.demonixis.net/ajout-du-multilingue-dans-votre-jeux-avec-unity-3d/
 /// </author>
 
-[RequireComponent(typeof(TextMeshProUGUI))]
-public sealed class TranslateText : MonoBehaviour
+namespace Utils
 {
-    #region Fields
-    private string _key = string.Empty;
-    private TextMeshProUGUI _text;
-    #endregion
-
-    #region MonoBehaviour Callbacks
-    void Awake()
+    [RequireComponent(typeof(TextMeshProUGUI))]
+    public sealed class TranslateText : MonoBehaviour
     {
-        _text = GetComponent<TextMeshProUGUI>();
-    }
+        #region Fields
+        private string _key = string.Empty;
+        private TextMeshProUGUI _text;
+        #endregion
 
-    void Start()
-    {
-        _key = _text.text;
+        #region MonoBehaviour Callbacks
+        void Awake()
+        {
+            _text = GetComponent<TextMeshProUGUI>();
+        }
 
-        UpdateText();
-    }
-    #endregion
+        void Start()
+        {
+            _key = _text.text;
 
-    /// <summary>
-    /// Update key with text then, update text.
-    /// </summary>
-    public void DynamicTextUpdate()
-    {
-        _key = _text.text;
-        UpdateText();
-    }
+            UpdateText();
+        }
+        #endregion
 
-    void UpdateText()
-    {
-        _text.text = Translation.Get(_key);
+        /// <summary>
+        /// Update key with text then, update text.
+        /// </summary>
+        public void DynamicTextUpdate()
+        {
+            _key = _text.text;
+            UpdateText();
+        }
+
+        void UpdateText()
+        {
+            _text.text = Translation.Get(_key);
+        }
     }
 }
 #endif

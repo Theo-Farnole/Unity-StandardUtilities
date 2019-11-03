@@ -2,26 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateFollow : OwnedState<Transform>
+namespace Utils.Pattern
 {
-    public readonly float DISTANCE_THRESHOLD = 0.05f;
-
-    private float _speed;
-    private Transform _target;
-
-    public StateFollow(Transform owner, float speed, Transform target) : base(owner)
+    public class StateFollow : OwnedState<Transform>
     {
-        _speed = speed;
-        _target = target;
-    }
+        public readonly float DISTANCE_THRESHOLD = 0.05f;
 
-    public override void Tick()
-    {
-        _owner.position = Vector3.MoveTowards(_owner.position, _target.position, _speed * Time.deltaTime);
+        private float _speed;
+        private Transform _target;
 
-        if (Vector3.Distance(_owner.position, _target.position) <= DISTANCE_THRESHOLD)
+        public StateFollow(Transform owner, float speed, Transform target) : base(owner)
         {
-            _owner.GetComponent<IDestinationReached>()?.OnDestinationReached();
+            _speed = speed;
+            _target = target;
+        }
+
+        public override void Tick()
+        {
+            _owner.position = Vector3.MoveTowards(_owner.position, _target.position, _speed * Time.deltaTime);
+
+            if (Vector3.Distance(_owner.position, _target.position) <= DISTANCE_THRESHOLD)
+            {
+                _owner.GetComponent<IDestinationReached>()?.OnDestinationReached();
+            }
         }
     }
 }

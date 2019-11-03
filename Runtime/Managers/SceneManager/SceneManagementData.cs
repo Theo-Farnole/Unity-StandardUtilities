@@ -5,10 +5,10 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Utils
+namespace Utils.Managers
 {
-    [CreateAssetMenu(menuName = "Utils/Scene Management Data")]
-    public class SceneManagementData : ScriptableObject
+    [CreateAssetMenu(menuName = "Utils/SceneManager Data")]
+    public class SceneManagerDAta : ScriptableObject
     {
         [SerializeField] private string _scenePath = "Assets/Scenes/";
         [Space]

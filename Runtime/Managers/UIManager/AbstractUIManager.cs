@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using Utils.Pattern;
 
-namespace Utils.Management.UI
+namespace Utils.Managers
 {
     // can't have an ABSTRACT class w/ mono behaviour inheritance
     public class AbstractUIManager : Singleton<AbstractUIManager>

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[SelectionBase]
-public class SelectionBase : MonoBehaviour
+namespace Utils.Debugging
 {
+    [SelectionBase]
+    public class SelectionBase : MonoBehaviour { }
 }

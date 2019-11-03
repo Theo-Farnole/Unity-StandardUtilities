@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(DrawCircle))]
-public class DrawCircleEditor : Editor
+namespace Utils
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(DrawCircle))]
+    public class DrawCircleEditor : Editor
     {
-        DrawDefaultInspector();
-
-        DrawCircle myScript = (DrawCircle)target;
-        if (GUILayout.Button("Draw circle"))
+        public override void OnInspectorGUI()
         {
-            myScript.UpdateCircle();
+            DrawDefaultInspector();
+
+            DrawCircle myScript = (DrawCircle)target;
+            if (GUILayout.Button("Draw circle"))
+            {
+                myScript.UpdateCircle();
+            }
         }
     }
 }

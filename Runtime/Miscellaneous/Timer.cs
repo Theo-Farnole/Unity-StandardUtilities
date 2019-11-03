@@ -3,42 +3,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Timer
+namespace Utils
 {
-    private Coroutine _coroutine;
-
-    public Coroutine Coroutine { get => _coroutine; }
-
-    /// <summary>
-    /// Constructor of Timer
-    /// </summary>
-    /// <param name="ownerOfCoroutine">MonoBehaviour which will start the Coroutine</param>
-    /// <param name="duration">Duration of the timer</param>
-    /// <param name="task">float parameter is percent of progress of timer. Clamped between 0 and 1.</param>
-    public Timer(MonoBehaviour ownerOfCoroutine, float duration, Action<float> task, Action taskOnEnd = null)
+    public class Timer
     {
-        _coroutine = ownerOfCoroutine.StartCoroutine(TimerCoroutine(task, taskOnEnd, duration));
-    }
+        private Coroutine _coroutine;
 
-    IEnumerator TimerCoroutine(Action<float> task, Action taskOnEnd, float duration)
-    {
-        float startingTime = Time.unscaledTime;
-        float time = 0;
+        public Coroutine Coroutine { get => _coroutine; }
 
-        do
+        /// <summary>
+        /// Constructor of Timer
+        /// </summary>
+        /// <param name="ownerOfCoroutine">MonoBehaviour which will start the Coroutine</param>
+        /// <param name="duration">Duration of the timer</param>
+        /// <param name="task">float parameter is percent of progress of timer. Clamped between 0 and 1.</param>
+        public Timer(MonoBehaviour ownerOfCoroutine, float duration, Action<float> task, Action taskOnEnd = null)
         {
-            float deltaTime = Time.unscaledTime - startingTime;
+            _coroutine = ownerOfCoroutine.StartCoroutine(TimerCoroutine(task, taskOnEnd, duration));
+        }
 
-            time = Mathf.Lerp(0, 1, deltaTime / duration);
+        IEnumerator TimerCoroutine(Action<float> task, Action taskOnEnd, float duration)
+        {
+            float startingTime = Time.unscaledTime;
+            float time = 0;
 
-            if (float.IsNaN(time) == false)
+            do
             {
-                task?.Invoke(time);
-            }
+                float deltaTime = Time.unscaledTime - startingTime;
 
-            yield return new WaitForEndOfFrame();
-        } while (time < 1);
+                time = Mathf.Lerp(0, 1, deltaTime / duration);
 
-        taskOnEnd?.Invoke();
+                if (float.IsNaN(time) == false)
+                {
+                    task?.Invoke(time);
+                }
+
+                yield return new WaitForEndOfFrame();
+            } while (time < 1);
+
+            taskOnEnd?.Invoke();
+        }
     }
 }

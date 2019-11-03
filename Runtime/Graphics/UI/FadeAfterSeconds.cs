@@ -3,30 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Graphic))]
-public class FadeAfterSeconds : MonoBehaviour
+namespace Utils
 {
-    [SerializeField] private float _timeBeforeFade = 1;
-    [Space]
-    [SerializeField] private FadeType _fadeType = FadeType.FadeIn;
-    [SerializeField] private float _fadeDuration = 1;
-
-
-    void Start()
+    [RequireComponent(typeof(Graphic))]
+    public class FadeAfterSeconds : MonoBehaviour
     {
-        Graphic graphic = GetComponent<Graphic>();
+        [SerializeField] private float _timeBeforeFade = 1;
+        [Space]
+        [SerializeField] private FadeType _fadeType = FadeType.FadeIn;
+        [SerializeField] private float _fadeDuration = 1;
 
-        switch (_fadeType)
+
+        void Start()
         {
-            case FadeType.FadeIn:
-                graphic.SetAlpha(0);
-                break;
+            Graphic graphic = GetComponent<Graphic>();
 
-            case FadeType.FadeOut:
-                graphic.SetAlpha(1);
-                break;
+            switch (_fadeType)
+            {
+                case FadeType.FadeIn:
+                    graphic.SetAlpha(0);
+                    break;
+
+                case FadeType.FadeOut:
+                    graphic.SetAlpha(1);
+                    break;
+            }
+
+            this.ExecuteAfterTime(_timeBeforeFade, () => graphic.Fade(_fadeType, _fadeDuration));
         }
-
-        this.ExecuteAfterTime(_timeBeforeFade, () => graphic.Fade(_fadeType, _fadeDuration));
     }
 }

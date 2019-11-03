@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LookAtCamera : MonoBehaviour
+namespace Utils
 {
-    void Update()
+    public class LookAtCamera : MonoBehaviour
     {
-        transform.LookAt(Camera.main.transform);
+        void Update()
+        {
+            transform.LookAt(Camera.main.transform);
+        }
     }
 }

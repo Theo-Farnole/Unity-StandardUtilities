@@ -7,79 +7,82 @@ using System.IO;
 /// http://www.demonixis.net/ajout-du-multilingue-dans-votre-jeux-avec-unity-3d/
 /// </author>
 
-public sealed class Translation : MonoBehaviour
+namespace Utils
 {
-    public static readonly SystemLanguage[] Languages = { SystemLanguage.English, SystemLanguage.French };
-    private static Dictionary<string, string> Translations = null;
-
-    public static void ResetTranslations()
+    public sealed class Translation : MonoBehaviour
     {
-        Translations = null;
-    }
+        public static readonly SystemLanguage[] Languages = { SystemLanguage.English, SystemLanguage.French };
+        private static Dictionary<string, string> Translations = null;
 
-    private static void CheckInstance()
-    {
-        // It's already initialized.
-        if (Translations != null)
-            return;
+        public static void ResetTranslations()
+        {
+            Translations = null;
+        }
 
-        Translations = new Dictionary<string, string>();
+        private static void CheckInstance()
+        {
+            // It's already initialized.
+            if (Translations != null)
+                return;
 
-        var lang = Application.systemLanguage;
+            Translations = new Dictionary<string, string>();
 
-        // Check if the current language is supported.
-        // Otherwise use the first language as default.
-        if (Array.IndexOf<SystemLanguage>(Languages, lang) == -1)
-            lang = Languages[0];
+            var lang = Application.systemLanguage;
 
-        // Load and parse the translation file from the Resources folder.
-        var data = Resources.Load<TextAsset>($"Translations/{lang}");
+            // Check if the current language is supported.
+            // Otherwise use the first language as default.
+            if (Array.IndexOf<SystemLanguage>(Languages, lang) == -1)
+                lang = Languages[0];
 
-        if (data != null)
-            ParseFile(data.text);
-    }
-    // Returns the translation for this key.
-    public static string Get(string key)
-    {
-        CheckInstance();
+            // Load and parse the translation file from the Resources folder.
+            var data = Resources.Load<TextAsset>($"Translations/{lang}");
 
-        if (Translations.ContainsKey(key))
-            return Translations[key];
+            if (data != null)
+                ParseFile(data.text);
+        }
+        // Returns the translation for this key.
+        public static string Get(string key)
+        {
+            CheckInstance();
+
+            if (Translations.ContainsKey(key))
+                return Translations[key];
 
 #if UNITY_EDITOR
-        Debug.Log($"The key {key} is missing");
+            Debug.Log($"The key {key} is missing");
 #endif
-        return key;
-    }
+            return key;
+        }
 
-    public static void ParseFile(string data)
-    {
-        using (var stream = new StringReader(data))
+        public static void ParseFile(string data)
         {
-            var line = stream.ReadLine();
-            var temp = new string[2];
-            var key = string.Empty;
-            var value = string.Empty;
-            while (line != null)
+            using (var stream = new StringReader(data))
             {
-                if (line.StartsWith(";") || line.StartsWith("["))
+                var line = stream.ReadLine();
+                var temp = new string[2];
+                var key = string.Empty;
+                var value = string.Empty;
+                while (line != null)
                 {
-                    line = stream.ReadLine();
-                    continue;
-                }
-                temp = line.Split('=');
-                if (temp.Length == 2)
-                {
-                    key = temp[0].Trim();
-                    value = temp[1].Trim();
-                    if (value == string.Empty)
+                    if (line.StartsWith(";") || line.StartsWith("["))
+                    {
+                        line = stream.ReadLine();
                         continue;
-                    if (Translations.ContainsKey(key))
-                        Translations[key] = value;
-                    else
-                        Translations.Add(key, value);
+                    }
+                    temp = line.Split('=');
+                    if (temp.Length == 2)
+                    {
+                        key = temp[0].Trim();
+                        value = temp[1].Trim();
+                        if (value == string.Empty)
+                            continue;
+                        if (Translations.ContainsKey(key))
+                            Translations[key] = value;
+                        else
+                            Translations.Add(key, value);
+                    }
+                    line = stream.ReadLine();
                 }
-                line = stream.ReadLine();
             }
         }
     }

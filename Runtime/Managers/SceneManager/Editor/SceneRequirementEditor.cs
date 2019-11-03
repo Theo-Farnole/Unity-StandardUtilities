@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Utils.Managers;
 
-namespace Utils
+namespace Utils.Managers
 {
     public class SceneRequirementEditor
     {
         [MenuItem("Utils/Load Game Logic")]
         private static void LoadLogicScenes()
         {
-            string[] loadedLevelScenes = GetLoadedSceneInArray(SceneManagement.Data.LevelScenesName);
-            string[] loadedLogicScenes = GetLoadedSceneInArray(SceneManagement.Data.GameLogicSceneName);
+            string[] loadedLevelScenes = GetLoadedSceneInArray(SceneManager.Data.LevelScenesName);
+            string[] loadedLogicScenes = GetLoadedSceneInArray(SceneManager.Data.GameLogicSceneName);
 
             if (loadedLevelScenes.Length != 1)
             {
@@ -31,13 +31,13 @@ namespace Utils
             }
 
             // load missing logic
-            for (int i = 0; i < SceneManagement.Data.GameLogicSceneName.Length; i++)
+            for (int i = 0; i < SceneManager.Data.GameLogicSceneName.Length; i++)
             {
-                bool isLogicSceneLoaded = Array.Exists(loadedLogicScenes, element => element == SceneManagement.Data.GameLogicSceneName[i]);
+                bool isLogicSceneLoaded = Array.Exists(loadedLogicScenes, element => element == SceneManager.Data.GameLogicSceneName[i]);
 
                 if (!isLogicSceneLoaded)
                 {
-                    EditorSceneManager.OpenScene(SceneManagement.Data.ScenePath + SceneManagement.Data.GameLogicSceneName[i] + ".unity", OpenSceneMode.Additive);
+                    EditorSceneManager.OpenScene(SceneManager.Data.ScenePath + SceneManager.Data.GameLogicSceneName[i] + ".unity", OpenSceneMode.Additive);
                 }
             }
         }
@@ -46,9 +46,9 @@ namespace Utils
         {
             List<string> o = new List<string>();
 
-            for (int i = 0; i < SceneManager.sceneCount; i++)
+            for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCount; i++)
             {
-                Scene loadedScene = SceneManager.GetSceneAt(i);
+                UnityEngine.SceneManagement.Scene loadedScene = UnityEngine.SceneManagement.SceneManager.GetSceneAt(i);
                 bool isAWantedScene = Array.Exists(scenesNames, element => element == loadedScene.name);
 
                 if (isAWantedScene && loadedScene.isLoaded)
