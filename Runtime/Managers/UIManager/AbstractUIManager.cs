@@ -9,7 +9,7 @@ using Utils.Pattern;
 namespace Utils.Managers
 {
     // can't have an ABSTRACT class w/ mono behaviour inheritance
-    public class AbstractUIManager : Singleton<AbstractUIManager>
+    public class AbstractUIManager<T> : Singleton<T> where T : MonoBehaviour
     {
         #region Fields
         private Dictionary<Type, Panel> _panels = new Dictionary<Type, Panel>();
