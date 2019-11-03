@@ -48,7 +48,7 @@ namespace Utils.Managers
                 Panel panel = (Panel)panelFieldInfo.GetValue(this);
 
                 _panels.Add(type, panel);
-                panel.Initialize(this);
+                panel.Initialize();
             }
         }
         #endregion

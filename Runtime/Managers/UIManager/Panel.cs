@@ -11,7 +11,7 @@ namespace Utils.Managers
 
         public GameObject Root { get => _root; }
 
-        public virtual void Initialize<T>(AbstractUIManager<T> uiManager) where T : MonoBehaviour
+        public virtual void Initialize()
         { }
 
     }
