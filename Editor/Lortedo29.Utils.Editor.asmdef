@@ -1,10 +1,12 @@
 {
-    "name": "Lortedo29.Utils",
+    "name": "Lortedo29.Utils.Editor",
     "references": [
-        "Unity.TextMeshPro"
+        "Lortedo29.Utils"
     ],
     "optionalUnityReferences": [],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false
 }

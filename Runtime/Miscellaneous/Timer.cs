@@ -22,24 +22,31 @@ namespace Utils
             _coroutine = ownerOfCoroutine.StartCoroutine(TimerCoroutine(task, taskOnEnd, duration));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="task">Float paramater is completion between 0 - 1.</param>
+        /// <param name="taskOnEnd"></param>
+        /// <param name="duration"></param>
+        /// <returns></returns>
         IEnumerator TimerCoroutine(Action<float> task, Action taskOnEnd, float duration)
         {
             float startingTime = Time.unscaledTime;
-            float time = 0;
+            float completion = 0;
 
             do
             {
                 float deltaTime = Time.unscaledTime - startingTime;
 
-                time = Mathf.Lerp(0, 1, deltaTime / duration);
+                completion = Mathf.Lerp(0, 1, deltaTime / duration);
 
-                if (float.IsNaN(time) == false)
+                if (float.IsNaN(completion) == false)
                 {
-                    task?.Invoke(time);
+                    task?.Invoke(completion);
                 }
 
                 yield return new WaitForEndOfFrame();
-            } while (time < 1);
+            } while (completion < 1);
 
             taskOnEnd?.Invoke();
         }

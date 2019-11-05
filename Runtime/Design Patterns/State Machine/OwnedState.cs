@@ -8,6 +8,9 @@ namespace Utils.Pattern
     {
         protected T _owner;
 
-        public OwnedState(T owner) => _owner = owner;
+        public OwnedState(T owner)
+        {
+            _owner = owner;
+        }
     }
 }
