@@ -86,7 +86,7 @@ namespace Lortedo.Utilities.Managers
 
             foreach (var key in _panels)
             {
-                bool shouldActive = (key.Key == typeof(T));
+                bool shouldActive = (key.Key == typeof(TPanel));
                 
 
                 // override panel
