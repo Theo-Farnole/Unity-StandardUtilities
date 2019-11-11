@@ -54,7 +54,7 @@ namespace Lortedo.Utilities.Managers
         #endregion
 
         #region Public methods
-        public void DisplayPanel<T>() where T : Panel
+        public void DisplayPanel<TPanel>() where TPanel : Panel
         {
             foreach (var key in _panels)
             {
