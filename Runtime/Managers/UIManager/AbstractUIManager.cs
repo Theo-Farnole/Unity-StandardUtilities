@@ -13,6 +13,7 @@ namespace Lortedo.Utilities.Managers
     {
         #region Fields
         private Dictionary<Type, Panel> _panels = new Dictionary<Type, Panel>();
+        private List<Type> _panelsAlwaysDisplay = new List<Type>();
         #endregion
 
         #region Methods
@@ -24,9 +25,11 @@ namespace Lortedo.Utilities.Managers
 
         protected virtual void OnValidate()
         {
-            foreach (var panel in _panels)
+            Assembly assemblyCSharp = UtilsClass.GetAssemblyByName("Assembly-CSharp");
+
+            foreach (Type type in UtilsClass.GetSubclass<Panel>(assemblyCSharp))
             {
-                panel.Value.OnValidate();
+                GetPanel(type)?.OnValidate();
             }
         }
         #endregion
@@ -77,7 +80,37 @@ namespace Lortedo.Utilities.Managers
             {
                 bool shouldActive = (key.Key == typeof(T));
 
+                // override panel
+                if (_panelsAlwaysDisplay.Contains(key.Key))
+                {
+                    shouldActive = true;
+                }
+
                 key.Value.Root.SetActive(shouldActive);
+            }
+        }
+
+        /// <param name="instantDisplay">If set to false, wait for DisplayPanel to be displayed.</param>
+        public void AddAlwaysDisplay<TPanel>(bool instantDisplay = true) where TPanel : Panel
+        {
+            Type type = _panels.First(x => x.Key == typeof(TPanel)).Key;
+            _panelsAlwaysDisplay.Add(type);
+
+            if (instantDisplay)
+            {
+                _panels[type].Root.SetActive(true);
+            }
+        }
+
+        /// <param name="instantRemove">If set to false, wait for DisplayPanel to be removed from display.</param>
+        public void RemoveAlwaysDisplay<TPanel>(bool instantRemove = true) where TPanel : Panel
+        {
+            Type type = _panels.First(x => x.Key == typeof(TPanel)).Key;
+            _panelsAlwaysDisplay.Remove(type);
+
+            if (instantRemove)
+            {
+                _panels[type].Root.SetActive(false);
             }
         }
         #endregion
