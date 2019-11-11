@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils.Managers
+namespace Lortedo.Utilities.Managers
 {
     public class LoadingHandler : MonoBehaviour
     {

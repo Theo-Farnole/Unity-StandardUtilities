@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections;
-using Utils.Pattern;
+using Lortedo.Utilities.Pattern;
 
-namespace Utils
+namespace Lortedo.Utilities
 {
     // code from
     // https://www.gamasutra.com/blogs/VivekTank/20180709/321571/Different_Ways_Of_Shaking_Camera_In_Unity.php

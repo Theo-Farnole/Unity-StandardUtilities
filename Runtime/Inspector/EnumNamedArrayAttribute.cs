@@ -5,7 +5,7 @@ using UnityEngine;
 /// https://answers.unity.com/questions/1589226/showing-an-array-with-enum-as-keys-in-the-property.html
 /// </author>
 
-namespace Utils.Inspector
+namespace Lortedo.Utilities.Inspector
 {
     public class EnumNamedArrayAttribute : PropertyAttribute
     {

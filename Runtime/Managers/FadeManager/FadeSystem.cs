@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Utils.Managers
+namespace Lortedo.Utilities.Managers
 {
     public static class FadeSystem
     {

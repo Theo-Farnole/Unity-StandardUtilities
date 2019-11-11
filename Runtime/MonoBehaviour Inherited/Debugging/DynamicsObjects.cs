@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils.Debugging
+namespace Lortedo.Utilities.Debugging
 {
     /// <summary>
     /// Keeps a clean hierarchy in the Editor while the game runs.

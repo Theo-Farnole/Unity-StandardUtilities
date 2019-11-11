@@ -1,4 +1,4 @@
-﻿namespace Utils
+﻿namespace Lortedo.Utilities
 {
     using UnityEngine;
 

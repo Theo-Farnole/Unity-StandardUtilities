@@ -5,9 +5,9 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Utils.Managers
+namespace Lortedo.Utilities.Managers
 {
-    [CreateAssetMenu(menuName = "Utils/SceneManager Data", fileName = "SceneManager Data")]
+    [CreateAssetMenu(menuName = "Lortedo.Utils/SceneManager Data", fileName = "SceneManager Data")]
     public class SceneManagerData : ScriptableObject
     {
         [SerializeField] private string _scenePath = "Assets/Scenes/";

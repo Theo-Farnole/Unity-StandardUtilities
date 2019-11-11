@@ -1,7 +1,7 @@
 {
-    "name": "Lortedo29.Utils.Editor",
+    "name": "Lortedo29.Lortedo.Utils.Editor",
     "references": [
-        "Lortedo29.Utils"
+        "Lortedo29.Lortedo.Utils"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [

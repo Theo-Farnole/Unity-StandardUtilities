@@ -7,7 +7,7 @@ using UnityEngine;
 // from
 // https://hyunkell.com/blog/rts-style-unit-selection-in-unity-5/
 
-namespace Utils
+namespace Lortedo.Utilities
 {
     public static class GUIRectDrawer
     {

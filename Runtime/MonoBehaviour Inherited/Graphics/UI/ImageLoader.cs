@@ -7,7 +7,7 @@ using UnityEngine.UI;
 // code from
 // https://gist.github.com/EmpireWorld/2103b803583ac6f615f92434f254d5be
 
-namespace Utils
+namespace Lortedo.Utilities
 {
     [RequireComponent(typeof(Image))]
     public class ImageLoader : MonoBehaviour

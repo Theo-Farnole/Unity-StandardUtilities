@@ -1,5 +1,5 @@
 
-namespace Utils.Pattern
+namespace Lortedo.Utilities.Pattern
 {
     public abstract class State
     {

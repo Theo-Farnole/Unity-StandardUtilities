@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-namespace Utils.Pattern
+namespace Lortedo.Utilities.Pattern
 {
     public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {

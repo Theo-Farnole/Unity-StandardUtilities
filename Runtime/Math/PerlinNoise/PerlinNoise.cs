@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils.PerlinNoise
+namespace Lortedo.Utilities.PerlinNoise
 {
     [System.Serializable]
     public class PerlinNoise

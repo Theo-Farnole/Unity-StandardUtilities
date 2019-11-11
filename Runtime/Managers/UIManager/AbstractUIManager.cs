@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
-using Utils.Pattern;
+using Lortedo.Utilities.Pattern;
 
-namespace Utils.Managers
+namespace Lortedo.Utilities.Managers
 {
     // can't have an ABSTRACT class w/ mono behaviour inheritance
     public class AbstractUIManager<T> : Singleton<T> where T : MonoBehaviour

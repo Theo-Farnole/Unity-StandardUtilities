@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils.PerlinNoise.Filters
+namespace Lortedo.Utilities.PerlinNoise.Filters
 {
     [System.Serializable]
     public abstract class Filter

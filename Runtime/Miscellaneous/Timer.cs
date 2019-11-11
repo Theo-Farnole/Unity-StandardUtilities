@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils
+namespace Lortedo.Utilities
 {
     public class Timer
     {

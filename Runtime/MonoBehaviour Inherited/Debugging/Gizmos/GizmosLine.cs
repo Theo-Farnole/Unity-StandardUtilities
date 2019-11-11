@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils
+namespace Lortedo.Utilities
 {
     /// <author>
     /// https://answers.unity.com/questions/1139985/gizmosdrawline-thickens.html

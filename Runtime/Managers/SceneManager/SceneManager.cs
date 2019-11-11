@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 
-namespace Utils.Managers
+namespace Lortedo.Utilities.Managers
 {
     public delegate void OnSceneActivation();
 

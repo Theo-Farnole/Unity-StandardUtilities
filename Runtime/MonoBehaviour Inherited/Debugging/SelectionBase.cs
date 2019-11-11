@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils.Debugging
+namespace Lortedo.Utilities.Debugging
 {
     [SelectionBase]
     public class SelectionBase : MonoBehaviour { }

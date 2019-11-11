@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-namespace Utils
+namespace Lortedo.Utilities
 {
     public static class UtilsClass
     {

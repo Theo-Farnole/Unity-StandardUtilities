@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace Utils
+namespace Lortedo.Utilities
 {
     [CustomEditor(typeof(DrawCircle))]
     public class DrawCircleEditor : Editor

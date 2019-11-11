@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using Utils.Managers;
+using Lortedo.Utilities.Managers;
 
-namespace Utils.Managers
+namespace Lortedo.Utilities.Managers
 {
     public class SceneRequirementEditor
     {
-        [MenuItem("Utils/Load Game Logic")]
+        [MenuItem("Lortedo.Utils/Load Game Logic")]
         private static void LoadLogicScenes()
         {
             string[] loadedLevelScenes = GetLoadedSceneInArray(SceneManager.Data.LevelScenesName);

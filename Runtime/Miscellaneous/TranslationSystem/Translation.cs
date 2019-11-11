@@ -7,7 +7,7 @@ using System.IO;
 /// http://www.demonixis.net/ajout-du-multilingue-dans-votre-jeux-avec-unity-3d/
 /// </author>
 
-namespace Utils
+namespace Lortedo.Utilities
 {
     public sealed class Translation : MonoBehaviour
     {

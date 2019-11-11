@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Utils;
+using Lortedo.Utilities;
 
 public enum FadeType { FadeIn, FadeOut }
 

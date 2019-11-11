@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Utils
+namespace Lortedo.Utilities
 {
     [RequireComponent(typeof(Graphic))]
     public class FadeAfterSeconds : MonoBehaviour
