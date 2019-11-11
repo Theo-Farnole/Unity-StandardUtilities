@@ -14,5 +14,7 @@ namespace Lortedo.Utilities.Managers
         public virtual void Initialize()
         { }
 
+        public virtual void OnValidate()
+        { }
     }
 }

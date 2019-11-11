@@ -21,6 +21,14 @@ namespace Lortedo.Utilities.Managers
         {
             InitializePanels();
         }
+
+        protected virtual void OnValidate()
+        {
+            foreach (var panel in _panels)
+            {
+                panel.Value.OnValidate();
+            }
+        }
         #endregion
 
         #region Private methods
