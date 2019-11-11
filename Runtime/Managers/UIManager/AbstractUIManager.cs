@@ -82,12 +82,12 @@ namespace Lortedo.Utilities.Managers
         #region Public methods
         public void DisplayPanel<TPanel>() where TPanel : Panel
         {
+            _currentDisplayPanel = typeof(TPanel);
+
             foreach (var key in _panels)
             {
                 bool shouldActive = (key.Key == typeof(T));
-
-                if (shouldActive)
-                    _currentDisplayPanel = key.Key;
+                
 
                 // override panel
                 if (_panelsAlwaysDisplay.Contains(key.Key))
