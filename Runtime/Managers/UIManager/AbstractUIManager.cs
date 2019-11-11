@@ -41,23 +41,32 @@ namespace Lortedo.Utilities.Managers
 
             foreach (Type type in UtilsClass.GetSubclass<Panel>(assemblyCSharp))
             {
-                // get panel field info from type
-                FieldInfo panelFieldInfo = GetType().GetFields(BindingFlags.Instance |
-                              BindingFlags.Static |
-                              BindingFlags.NonPublic |
-                              BindingFlags.Public).FirstOrDefault(f => f.FieldType == type);
+                var panel = GetPanel(type);
 
-                if (panelFieldInfo == null)
-                {
-                    Debug.LogWarning("Can't find " + type + " panel on " + this + ".");
+                if (panel == null)
                     continue;
-                }
-
-                Panel panel = (Panel)panelFieldInfo.GetValue(this);
 
                 _panels.Add(type, panel);
                 panel.Initialize();
             }
+        }
+
+        Panel GetPanel(Type type)
+        {
+            // get panel field info from type
+            FieldInfo panelFieldInfo = GetType().GetFields(BindingFlags.Instance |
+                          BindingFlags.Static |
+                          BindingFlags.NonPublic |
+                          BindingFlags.Public).FirstOrDefault(f => f.FieldType == type);
+
+            if (panelFieldInfo == null)
+            {
+                Debug.LogWarning("Can't find " + type + " panel on " + this + ".");
+                return null;
+            }
+
+            Panel panel = (Panel)panelFieldInfo.GetValue(this);
+            return panel;
         }
         #endregion
 
