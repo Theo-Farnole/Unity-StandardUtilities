@@ -69,7 +69,7 @@ namespace Utils.Managers
         public static void LoadScene(string level)
         {
             // load LEVEL
-            SceneManager.LoadScene(level);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(level);
 
             // async load GAME_LOGIC
             if (Data.LevelScenesName.Contains(level))
