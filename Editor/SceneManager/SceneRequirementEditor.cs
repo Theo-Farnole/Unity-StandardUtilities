@@ -13,22 +13,7 @@ namespace Lortedo.Utilities.Managers
         [MenuItem("Lortedo.Utils/Load Game Logic")]
         private static void LoadLogicScenes()
         {
-            string[] loadedLevelScenes = GetLoadedSceneInArray(SceneManager.Data.LevelScenesName);
             string[] loadedLogicScenes = GetLoadedSceneInArray(SceneManager.Data.GameLogicSceneName);
-
-            if (loadedLevelScenes.Length != 1)
-            {
-                if (loadedLevelScenes.Length == 0)
-                {
-                    Debug.LogError("Open a level scene before loading required logic.");
-                }
-                else if (loadedLevelScenes.Length > 1)
-                {
-                    Debug.LogError("Can't load required logic with 2 differents levels.");
-                }
-
-                return;
-            }
 
             // load missing logic
             for (int i = 0; i < SceneManager.Data.GameLogicSceneName.Length; i++)
