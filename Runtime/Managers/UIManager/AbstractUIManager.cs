@@ -14,6 +14,12 @@ namespace Lortedo.Utilities.Managers
         #region Fields
         private Dictionary<Type, Panel> _panels = new Dictionary<Type, Panel>();
         private List<Type> _panelsAlwaysDisplay = new List<Type>();
+
+        private Type _currentDisplayPanel = null;
+        #endregion
+
+        #region Properties
+        public Type CurrentDisplayPanel { get => _currentDisplayPanel; }
         #endregion
 
         #region Methods
@@ -79,6 +85,9 @@ namespace Lortedo.Utilities.Managers
             foreach (var key in _panels)
             {
                 bool shouldActive = (key.Key == typeof(T));
+
+                if (shouldActive)
+                    _currentDisplayPanel = key.Key;
 
                 // override panel
                 if (_panelsAlwaysDisplay.Contains(key.Key))
