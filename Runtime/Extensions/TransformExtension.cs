@@ -2,77 +2,74 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Lortedo.Utilities.Extensions
+public static class TransformExtension
 {
-    public static class TransformExtension
+    /// <summary>
+    /// Returns nearest transform from transforms args.
+    /// </summary>
+    /// <param name="t"></param>
+    /// <param name="transforms">List of transforms to check who's the nearest</param>
+    /// <returns>Nearest Transform</returns>
+    /// <author> 
+    /// code from https://forum.unity.com/threads/clean-est-way-to-find-nearest-object-of-many-c.44315/
+    /// </author>
+    public static Transform GetClosestTransform(this Transform t, Transform[] transforms)
     {
-        /// <summary>
-        /// Returns nearest transform from transforms args.
-        /// </summary>
-        /// <param name="t"></param>
-        /// <param name="transforms">List of transforms to check who's the nearest</param>
-        /// <returns>Nearest Transform</returns>
-        /// <author> 
-        /// code from https://forum.unity.com/threads/clean-est-way-to-find-nearest-object-of-many-c.44315/
-        /// </author>
-        public static Transform GetClosestTransform(this Transform t, Transform[] transforms)
+        Vector3 currentPos = t.position;
+
+        Transform tMin = null;
+        float minDist = Mathf.Infinity;
+
+        foreach (Transform e in transforms)
         {
-            Vector3 currentPos = t.position;
+            float dist = Vector3.Distance(e.position, currentPos);
 
-            Transform tMin = null;
-            float minDist = Mathf.Infinity;
-
-            foreach (Transform e in transforms)
+            if (dist < minDist)
             {
-                float dist = Vector3.Distance(e.position, currentPos);
-
-                if (dist < minDist)
-                {
-                    tMin = e;
-                    minDist = dist;
-                }
-            }
-            return tMin;
-        }
-
-        public static ObjectByDistance<T> GetClosestComponent<T>(this Transform currentObject, T[] components) where T : MonoBehaviour
-        {
-            Vector3 currentPos = currentObject.transform.position;
-
-            T nearestObject = null;
-            float minDist = Mathf.Infinity;
-
-            for (int i = 0; i < components.Length; i++)
-            {
-                float dist = Vector3.Distance(components[i].transform.position, currentPos);
-
-                if (dist < minDist)
-                {
-                    nearestObject = components[i];
-                    minDist = dist;
-                }
-            }
-            return new ObjectByDistance<T>(nearestObject, minDist);
-        }
-
-        /// <summary>
-        /// Destroy every child inside transform t
-        /// </summary>
-        /// <param name="t"></param>
-        public static void DestroyChildren(this Transform t)
-        {
-            for (int i = t.childCount - 1; i >= 0; i--)
-            {
-                GameObject.Destroy(t.GetChild(i).gameObject);
+                tMin = e;
+                minDist = dist;
             }
         }
+        return tMin;
+    }
 
-        public static void ActionForEachChildren(this Transform t, Action<GameObject> action)
+    public static ObjectByDistance<T> GetClosestComponent<T>(this Transform currentObject, T[] components) where T : MonoBehaviour
+    {
+        Vector3 currentPos = currentObject.transform.position;
+
+        T nearestObject = null;
+        float minDist = Mathf.Infinity;
+
+        for (int i = 0; i < components.Length; i++)
         {
-            for (int i = 0; i < t.childCount; i++)
+            float dist = Vector3.Distance(components[i].transform.position, currentPos);
+
+            if (dist < minDist)
             {
-                action(t.GetChild(i).gameObject);
+                nearestObject = components[i];
+                minDist = dist;
             }
+        }
+        return new ObjectByDistance<T>(nearestObject, minDist);
+    }
+
+    /// <summary>
+    /// Destroy every child inside transform t
+    /// </summary>
+    /// <param name="t"></param>
+    public static void DestroyChildren(this Transform t)
+    {
+        for (int i = t.childCount - 1; i >= 0; i--)
+        {
+            GameObject.Destroy(t.GetChild(i).gameObject);
+        }
+    }
+
+    public static void ActionForEachChildren(this Transform t, Action<GameObject> action)
+    {
+        for (int i = 0; i < t.childCount; i++)
+        {
+            action(t.GetChild(i).gameObject);
         }
     }
 }

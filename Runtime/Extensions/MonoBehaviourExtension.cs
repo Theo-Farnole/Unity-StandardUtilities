@@ -3,29 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Lortedo.Utilities.Extensions
+public static class MonoBehaviourExtension
 {
-    public static class MonoBehaviourExtension
+    /// <summary>
+    /// Execute task after time.
+    /// </summary>
+    /// <param name="mono"></param>
+    /// <param name="time"></param>
+    /// <param name="task"></param>
+    public static Coroutine ExecuteAfterTime(this MonoBehaviour mono, float time, Action task)
     {
-        /// <summary>
-        /// Execute task after time.
-        /// </summary>
-        /// <param name="mono"></param>
-        /// <param name="time"></param>
-        /// <param name="task"></param>
-        public static Coroutine ExecuteAfterTime(this MonoBehaviour mono, float time, Action task)
-        {
-            return mono.StartCoroutine(Coroutine(time, task));
-        }
+        return mono.StartCoroutine(Coroutine(time, task));
+    }
 
-        /// <summary>
-        /// Called from ExecuteAfterTime.
-        /// </summary>
-        static IEnumerator Coroutine(float time, Action task)
-        {
-            yield return new WaitForSecondsRealtime(time);
+    /// <summary>
+    /// Called from ExecuteAfterTime.
+    /// </summary>
+    static IEnumerator Coroutine(float time, Action task)
+    {
+        yield return new WaitForSecondsRealtime(time);
 
-            task();
-        }
+        task();
     }
 }
