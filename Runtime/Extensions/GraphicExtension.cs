@@ -4,38 +4,41 @@ using UnityEngine;
 using UnityEngine.UI;
 using Lortedo.Utilities;
 
-public enum FadeType { FadeIn, FadeOut }
-
-public static class GraphicExtension
+namespace Lortedo.Utilities.Extensions
 {
-    /// <summary>
-    /// Fade graphic component.
-    /// </summary>
-    public static Coroutine Fade(this Graphic g, FadeType fadeType, float timeToFadout)
+    public enum FadeType { FadeIn, FadeOut }
+
+    public static class GraphicExtension
     {
-        return new Timer(g, timeToFadout, (float f) =>
+        /// <summary>
+        /// Fade graphic component.
+        /// </summary>
+        public static Coroutine Fade(this Graphic g, FadeType fadeType, float timeToFadout)
         {
-            var color = g.color;
-
-            switch (fadeType)
+            return new Timer(g, timeToFadout, (float f) =>
             {
-                case FadeType.FadeIn:
-                    color.a = f;
-                    break;
+                var color = g.color;
 
-                case FadeType.FadeOut:
-                    color.a = 1 - f;
-                    break;
-            }
+                switch (fadeType)
+                {
+                    case FadeType.FadeIn:
+                        color.a = f;
+                        break;
 
-            g.color = color;
-        }).Coroutine;
-    }
+                    case FadeType.FadeOut:
+                        color.a = 1 - f;
+                        break;
+                }
 
-    public static void SetAlpha(this Graphic g, float alpha)
-    {
-        Color c = g.color;
-        c.a = alpha;
-        g.color = c;
+                g.color = color;
+            }).Coroutine;
+        }
+
+        public static void SetAlpha(this Graphic g, float alpha)
+        {
+            Color c = g.color;
+            c.a = alpha;
+            g.color = c;
+        }
     }
 }

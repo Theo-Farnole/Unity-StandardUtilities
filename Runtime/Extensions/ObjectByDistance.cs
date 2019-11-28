@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Lortedo.Utilities
+namespace Lortedo.Utilities.Extensions
 {
     public struct ObjectByDistance<T>
     {
