@@ -3,13 +3,15 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEditor;
 
 namespace Lortedo.Utilities.Managers
 {
     public delegate void OnSceneActivation();
 
+    /// <summary>
+    /// SceneManager that load scene w/ logics scenes.
+    /// </summary>
     public static class SceneManager
     {
         #region Fields
@@ -19,10 +21,8 @@ namespace Lortedo.Utilities.Managers
 
         private static SceneManagerData _data;
 
-        private static List<AsyncOperation> _asyncGameLogic = new List<AsyncOperation>();
+        private static List<AsyncOperation> _asyncLoad = new List<AsyncOperation>();
         private static List<AsyncOperation> _asyncUnload = new List<AsyncOperation>();
-
-        private static LoadingHandler _loadingHandler; // owns loading coroutine
         #endregion
 
         #region Properties
@@ -32,12 +32,14 @@ namespace Lortedo.Utilities.Managers
             {
                 if (_data == null)
                 {
+                    // Load file
                     Debug.LogFormat("Loading \"{0}\" file from Resources folder...", DATA_NAME);
-                    _data = Resources.Load<SceneManagerData>(DATA_NAME);
+                    _data = Resources.Load<SceneManagerData>(DATA_NAME);                    
 
                     if (_data == null)
                     {
 #if UNITY_EDITOR
+                        // Create the file if it doesn't exist
                         _data = ScriptableObject.CreateInstance<SceneManagerData>();
 
                         AssetDatabase.CreateFolder("Assets", "Resources");
@@ -58,86 +60,82 @@ namespace Lortedo.Utilities.Managers
 
         #region Methods
         #region Public Methods
+        /// <summary>
+        /// Reload current scene with logic scenes.
+        /// </summary>
         public static void ReloadScene()
         {
             LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         }
 
         /// <summary>
-        /// Load level scene with GameLogic
+        /// Reload current scene with logic scenes asynchronously.
         /// </summary>
+        public static void ReloadSceneAsync()
+        {
+            LoadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        }
+
+
+        /// <summary>
+        /// Load scene with logic scenes.
+        /// </summary>
+        /// <param name="level">Level to load</param>
         public static void LoadScene(string level)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(level);
+
+            for (int i = 0; i < Data.GameLogicSceneName.Length; i++)
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene(_data.GameLogicSceneName[0], UnityEngine.SceneManagement.LoadSceneMode.Additive);
+            }
+        }
+
+        /// <summary>
+        /// Load scene with logic scenes asynchronously.
+        /// </summary>
+        /// <param name="level">Level to load</param>
+        public static void LoadSceneAsync(string level)
         {
             // load LEVEL
             UnityEngine.SceneManagement.SceneManager.LoadScene(level);
 
             // async load GAME_LOGIC
-            if (Data.LevelScenesName.Contains(level))
+            _asyncLoad.Clear();
+
+            for (int i = 0; i < Data.GameLogicSceneName.Length; i++)
             {
-                _asyncGameLogic.Clear();
+                var ao = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(_data.GameLogicSceneName[0], UnityEngine.SceneManagement.LoadSceneMode.Additive);
 
-                for (int i = 0; i < Data.GameLogicSceneName.Length; i++)
-                {
-                    var ao = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(_data.GameLogicSceneName[0], LoadSceneMode.Additive);
-
-                    _asyncGameLogic.Add(ao);
-                    _asyncGameLogic[i].allowSceneActivation = false;
-                }
+                _asyncLoad.Add(ao);
+                _asyncLoad[i].allowSceneActivation = false;
             }
-
-            // start loading handler
-            CreateLoadingHandler();
-            _loadingHandler.StartCoroutine(LoadingHandler());
         }
 
+        /// <summary>
+        /// Load scene w/ fade blink
+        /// </summary>
+        /// <param name="level"></param>
+        /// <param name="fadeDuration"></param>
+        /// <param name="fadeColor"></param>
         public static void LoadScene(string level, float fadeDuration, Color fadeColor)
         {
-            CreateLoadingHandler();
-
             FadeSystem.FadeBlinkScene(fadeDuration);
-            _loadingHandler.ExecuteAfterTime(fadeDuration / 2, () => LoadScene(level));
-        }
-        #endregion
-
-        #region Private Methods
-        static void CreateLoadingHandler()
-        {
-            if (_loadingHandler != null)
-                return;
-
-            _loadingHandler = new GameObject().AddComponent<LoadingHandler>();
-            UnityEngine.Object.DontDestroyOnLoad(_loadingHandler);
+            LoadSceneAsync(level);
+            
+            // on FadeIn ended, load scene
+            DontDestroyObject.Instance.ExecuteAfterTime(fadeDuration / 2, AllowScenesActivation);
         }
 
-        static IEnumerator LoadingHandler()
-        {
-            // Wait until the asynchronous scene fully loads
-            while (!IsLoadingCompleted())
-            {
-                yield return null;
-            }
-
-            AllowScenesActivation();
-        }
-
-        static bool IsLoadingCompleted()
-        {
-            //  check if game logic loaded
-            for (int i = 0; i < _asyncGameLogic.Count; i++)
-            {
-                if (_asyncGameLogic[i].progress < 0.9f)
-                    return false;
-            }
-
-            return true;
-        }
-
-        static void AllowScenesActivation()
+        /// <summary>
+        /// Allow activation of scenes.
+        /// </summary>
+        public static void AllowScenesActivation()
         {
             // load scenes
-            for (int i = 0; i < _asyncGameLogic.Count; i++)
+            for (int i = 0; i < _asyncLoad.Count; i++)
             {
-                _asyncGameLogic[i].allowSceneActivation = true;
+                _asyncLoad[i].allowSceneActivation = true;
             }
 
             // ... then unload old scenes
