@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,8 +17,10 @@ namespace Lortedo.Utilities.Managers
             if (_fadeImage != null)
                 return;
 
-            GameObject init = new GameObject();
-            init.name = "Fader";
+            GameObject init = new GameObject
+            {
+                name = "Fader"
+            };
 
             Canvas myCanvas = init.AddComponent<Canvas>();
             myCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
@@ -37,6 +39,8 @@ namespace Lortedo.Utilities.Managers
         public static void Fade(FadeType fadeType, float duration, Color color)
         {
             CreateFadeImage();
+
+            _fadeImage.StopAllCoroutines();
 
             _fadeImage.color = color;
             _fadeImage.Fade(fadeType, duration / 2);
