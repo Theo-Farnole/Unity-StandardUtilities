@@ -2,6 +2,7 @@
 {
     using UnityEngine;
     using UnityEditor;
+    using Lortedo.Utilities.DataTypes;
 
     [CustomPropertyDrawer(typeof(Bounds2D))]
     public class Bounds2DDrawer : PropertyDrawer
