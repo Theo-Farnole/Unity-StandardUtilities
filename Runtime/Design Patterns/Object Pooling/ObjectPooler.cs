@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -57,7 +57,13 @@ namespace Lortedo.Utilities.Pattern
             objectToSpawn.transform.rotation = rotation;
 
             objectToSpawn.SetActive(true);
-            objectToSpawn.GetComponent<IPooledObject>()?.OnObjectSpawn();
+
+            var pooledObject = objectToSpawn.GetComponent<IPooledObject>();
+            if (pooledObject != null)
+            {
+                pooledObject.OnObjectSpawn();
+                pooledObject.ObjectTag = tag;
+            }
 
             return objectToSpawn;
         }
