@@ -10,7 +10,7 @@ namespace Lortedo.Utilities.Managers
 {
     public class SceneRequirementEditor
     {
-        [MenuItem("Lortedo.Utils/Load Game Logic")]
+        [MenuItem("Utilities/Load logics scenes")]
         private static void LoadLogicScenes()
         {
             string[] loadedLogicScenes = GetLoadedSceneInArray(SceneManager.Data.GameLogicSceneName);

@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Lortedo.Utils
+namespace Lortedo.Utilities
 {
     [RequireComponent(typeof(TextMeshProUGUI))]
     public class SwitchMaterialOnSeleted : MonoBehaviour
