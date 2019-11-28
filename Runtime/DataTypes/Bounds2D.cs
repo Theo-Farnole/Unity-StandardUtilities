@@ -1,4 +1,4 @@
-﻿namespace Lortedo.Utilities
+﻿namespace Lortedo.Utilities.DataTypes
 {
     using UnityEngine;
 
@@ -24,10 +24,23 @@
         {
             return (value >= minimum && value <= maximum);
         }
+    }
 
-        public Vector2 AsVector2()
+    public static class Bounds2DExtension
+    {
+        public static Vector2 ToVector(this Bounds2D b)
         {
-            return new Vector2(minimum, maximum);
+            return new Vector2(b.minimum, b.maximum);
+        }
+
+        public static bool WithinLimits(this Bounds2D b, float value)
+        {
+            return (value >= b.minimum && value <= b.maximum);
+        }
+
+        public static float Clamp(this Bounds2D b, float value)
+        {
+            return Mathf.Clamp(value, b.minimum, b.maximum);
         }
     }
 }
