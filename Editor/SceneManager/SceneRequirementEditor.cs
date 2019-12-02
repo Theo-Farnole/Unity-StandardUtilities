@@ -13,16 +13,16 @@ namespace Lortedo.Utilities.Managers
         [MenuItem("Utilities/Load logics scenes")]
         private static void LoadLogicScenes()
         {
-            string[] loadedLogicScenes = GetLoadedSceneInArray(SceneManager.Data.GameLogicSceneName);
+            string[] loadedLogicScenes = GetLoadedSceneInArray(SceneManager.Data.LogicScenesNames);
 
             // load missing logic
-            for (int i = 0; i < SceneManager.Data.GameLogicSceneName.Length; i++)
+            for (int i = 0; i < SceneManager.Data.LogicScenesNames.Length; i++)
             {
-                bool isLogicSceneLoaded = Array.Exists(loadedLogicScenes, element => element == SceneManager.Data.GameLogicSceneName[i]);
+                bool isLogicSceneLoaded = Array.Exists(loadedLogicScenes, element => element == SceneManager.Data.LogicScenesNames[i]);
 
                 if (!isLogicSceneLoaded)
                 {
-                    EditorSceneManager.OpenScene(SceneManager.Data.ScenePath + SceneManager.Data.GameLogicSceneName[i] + ".unity", OpenSceneMode.Additive);
+                    EditorSceneManager.OpenScene(SceneManager.Data.ScenePath + SceneManager.Data.LogicScenesNames[i] + ".unity", OpenSceneMode.Additive);
                 }
             }
         }

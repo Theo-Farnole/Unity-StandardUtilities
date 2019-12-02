@@ -85,9 +85,9 @@ namespace Lortedo.Utilities.Managers
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(level);
 
-            for (int i = 0; i < Data.GameLogicSceneName.Length; i++)
+            for (int i = 0; i < Data.LogicScenesNames.Length; i++)
             {
-                UnityEngine.SceneManagement.SceneManager.LoadScene(_data.GameLogicSceneName[0], UnityEngine.SceneManagement.LoadSceneMode.Additive);
+                UnityEngine.SceneManagement.SceneManager.LoadScene(_data.LogicScenesNames[0], UnityEngine.SceneManagement.LoadSceneMode.Additive);
             }
         }
 
@@ -103,9 +103,9 @@ namespace Lortedo.Utilities.Managers
             // async load GAME_LOGIC
             _asyncLoad.Clear();
 
-            for (int i = 0; i < Data.GameLogicSceneName.Length; i++)
+            for (int i = 0; i < Data.LogicScenesNames.Length; i++)
             {
-                var ao = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(_data.GameLogicSceneName[0], UnityEngine.SceneManagement.LoadSceneMode.Additive);
+                var ao = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(_data.LogicScenesNames[0], UnityEngine.SceneManagement.LoadSceneMode.Additive);
 
                 _asyncLoad.Add(ao);
                 _asyncLoad[i].allowSceneActivation = false;

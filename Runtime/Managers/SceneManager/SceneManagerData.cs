@@ -14,17 +14,17 @@ namespace Lortedo.Utilities.Managers
         [SerializeField] private string _scenePath = "Assets/Scenes/";
         [Space]
 #if UNITY_EDITOR
-        [SerializeField] private SceneAsset[] _gameLogicScenesAssets = new SceneAsset[0];
+        [SerializeField] private SceneAsset[] _logicScenesAssets = new SceneAsset[0];
 #endif  
-        [SerializeField, ShowOnly] private string[] _gameLogicSceneName = new string[0];
+        [SerializeField, HideInInspector] private string[] _logicScenesNames = new string[0];
 
         public string ScenePath { get => _scenePath; }
-        public string[] GameLogicSceneName { get => _gameLogicSceneName; }
+        public string[] LogicScenesNames { get => _logicScenesNames; }
 
 #if UNITY_EDITOR
         void OnValidate()
         {
-            _gameLogicSceneName = _gameLogicScenesAssets.Select(x => x.name).ToArray();
+            _logicScenesNames = _logicScenesAssets.Select(x => x.name).ToArray();
         }
 #endif
     }
