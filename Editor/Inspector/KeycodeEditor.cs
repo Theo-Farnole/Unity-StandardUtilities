@@ -34,6 +34,12 @@ public class KeycodeEditor : PropertyDrawer
             typeof(KeyScannerInfoState),
             controlID);
 
+        // initialize key code if not initialized
+        if (state.keyCode == KeyCode.None && (KeyCode)property.intValue != KeyCode.None)
+        {
+            state.keyCode = (KeyCode)property.intValue;
+        }
+
         //Create the style for the value field.
         //This way, we can tell if we are "recording" a keyboard event.
         GUIStyle style = new GUIStyle(GUI.skin.box)
@@ -144,7 +150,7 @@ public class KeycodeEditor : PropertyDrawer
         public override string ToString()
         {
             if (keyCode == KeyCode.None)
-                return "Press button then press a key.";
+                return "Press this button then type a key.";
 
             return keyCode.ToString();
         }
