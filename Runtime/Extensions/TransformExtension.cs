@@ -64,6 +64,18 @@ public static class TransformExtension
             GameObject.Destroy(t.GetChild(i).gameObject);
         }
     }
+	
+	/// <summary>
+    /// Destroy in Editor every child inside transform t
+    /// </summary>
+    /// <param name="t"></param>
+    public static void DestroyImmediateChildren(this Transform t)
+    {
+        for (int i = t.childCount - 1; i >= 0; i--)
+        {
+            GameObject.DestroyImmediate(t.GetChild(i).gameObject);
+        }
+    }
 
     public static void ActionForEachChildren(this Transform t, Action<GameObject> action)
     {
