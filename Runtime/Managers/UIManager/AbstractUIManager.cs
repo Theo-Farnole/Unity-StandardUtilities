@@ -31,9 +31,7 @@ namespace Lortedo.Utilities.Managers
 
         protected virtual void OnValidate()
         {
-            Assembly assemblyCSharp = UtilsClass.GetAssemblyByName("Assembly-CSharp");
-
-            foreach (Type type in UtilsClass.GetSubclass<Panel>(assemblyCSharp))
+            foreach (Type type in UtilsClass.GetSubclass<Panel>())
             {
                 GetPanel(type)?.OnValidate();
             }
@@ -46,9 +44,7 @@ namespace Lortedo.Utilities.Managers
         /// </summary>
         void InitializePanels()
         {
-            Assembly assemblyCSharp = UtilsClass.GetAssemblyByName("Assembly-CSharp");
-
-            foreach (Type type in UtilsClass.GetSubclass<Panel>(assemblyCSharp))
+            foreach (Type type in UtilsClass.GetSubclass<Panel>())
             {
                 var panel = GetPanel(type);
 

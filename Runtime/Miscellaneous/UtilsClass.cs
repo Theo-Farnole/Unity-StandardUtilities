@@ -9,21 +9,17 @@ namespace Lortedo.Utilities
 {
     public static class UtilsClass
     {
-        public static IEnumerable<Type> GetSubclass<T>(Assembly assembly)
-        {
-            Type parentType = typeof(T);
-            Type[] types = assembly.GetTypes();
-
-            IEnumerable<Type> subclasses = types.Where(t => t.IsSubclassOf(parentType));
-
-            return subclasses;
-        }
-
         public static IEnumerable<Type> GetSubclass<T>()
         {
-            Assembly assembly = typeof(T).Assembly;
+            Type parentType = typeof(T);
 
-            return GetSubclass<T>(assembly);
+            foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                foreach (var t in a.GetTypes())
+                {
+                    if (t.IsSubclassOf(parentType)) yield return t;
+                }
+            }
         }
 
         public static Assembly GetAssemblyByName(string name)
