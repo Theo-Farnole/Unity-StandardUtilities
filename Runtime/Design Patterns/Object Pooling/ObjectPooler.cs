@@ -60,8 +60,7 @@ namespace Lortedo.Utilities.Pattern
 
             objectToSpawn.SetActive(true);
 
-            var pooledObject = objectToSpawn.GetComponent<IPooledObject>();
-            if (pooledObject != null)
+            foreach (IPooledObject pooledObject in objectToSpawn.GetComponents<IPooledObject>())
             {
                 pooledObject.OnObjectSpawn();
                 pooledObject.ObjectTag = tag;
