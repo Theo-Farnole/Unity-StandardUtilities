@@ -21,10 +21,10 @@ namespace Lortedo.Utilities.Pattern
         [SerializeField] private Pool[] _poolsUserInput;
 
         private Dictionary<string, Queue<GameObject>> _pools = new Dictionary<string, Queue<GameObject>>();
-        private Dictionary<GameObject, Coroutine> _enqueueCoroutines = new Dictionary<GameObject, Coroutine>();
         #endregion
 
         #region Methods
+        #region Mono Callbacks
         void Awake()
         {
             // create Dictionnary from Pools Array (because Unity doesn't Dictionnary)
@@ -34,7 +34,9 @@ namespace Lortedo.Utilities.Pattern
                 _pools.Add(_poolsUserInput[i].tag, new Queue<GameObject>());
             }
         }
+        #endregion
 
+        #region Public methods
         public GameObject SpawnFromPool(GameObject prefab, Vector3 position, Quaternion rotation)
         {
             string tag = _poolsUserInput.Where(x => x.prefab == prefab).First().tag;
@@ -85,17 +87,9 @@ namespace Lortedo.Utilities.Pattern
 
             Debugging.DynamicsObjects.Instance?.SetToParent(toEnqueue.transform, tag + "_pool");
         }
+        #endregion
 
-        public void EnqueueGameObject(string tag, GameObject toEnqueue, float duration)
-        {
-            if (_enqueueCoroutines.ContainsKey(toEnqueue))
-            {
-                StopCoroutine(_enqueueCoroutines[toEnqueue]);
-            }
-
-            _enqueueCoroutines[toEnqueue] = this.ExecuteAfterTime(duration, () => EnqueueGameObject(tag, toEnqueue));
-        }
-
+        #region Private methods
         /// <summary>
         /// If pool empty, instantiate a prefab.
         /// </summary>
@@ -113,6 +107,7 @@ namespace Lortedo.Utilities.Pattern
 
             EnqueueGameObject(tag, prefab);
         }
+        #endregion
         #endregion
     }
 }
