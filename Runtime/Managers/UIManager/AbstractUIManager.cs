@@ -51,7 +51,7 @@ namespace Lortedo.Utilities.Managers
                     continue;
 
                 _panels.Add(type, panel);
-                panel.Initialize();
+                panel.Initialize(this);
             }
         }
 

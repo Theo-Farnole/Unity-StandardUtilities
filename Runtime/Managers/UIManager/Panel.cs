@@ -11,7 +11,7 @@ namespace Lortedo.Utilities.Managers
 
         public GameObject Root { get => _root; }
 
-        public virtual void Initialize()
+        public virtual void Initialize<T>(T uiManager) where T : AbstractUIManager
         { }
 
         public virtual void OnValidate()
