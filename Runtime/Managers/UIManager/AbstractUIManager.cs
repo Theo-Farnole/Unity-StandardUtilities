@@ -13,7 +13,6 @@ namespace Lortedo.Utilities.Managers
     {
         #region Fields
         private Dictionary<Type, Panel> _panels = new Dictionary<Type, Panel>();
-        private List<Type> _panelsAlwaysDisplay = new List<Type>();
 
         private Type _currentDisplayPanel = null;
         #endregion
@@ -83,13 +82,6 @@ namespace Lortedo.Utilities.Managers
             foreach (var key in _panels)
             {
                 bool shouldActive = (key.Key == typeof(TPanel));
-                
-
-                // override panel
-                if (_panelsAlwaysDisplay.Contains(key.Key))
-                {
-                    shouldActive = true;
-                }
 
                 key.Value.Root.SetActive(shouldActive);
             }
@@ -99,7 +91,6 @@ namespace Lortedo.Utilities.Managers
         public void AddAlwaysDisplay<TPanel>(bool instantDisplay = true) where TPanel : Panel
         {
             Type type = _panels.First(x => x.Key == typeof(TPanel)).Key;
-            _panelsAlwaysDisplay.Add(type);
 
             if (instantDisplay)
             {
@@ -111,7 +102,6 @@ namespace Lortedo.Utilities.Managers
         public void RemoveAlwaysDisplay<TPanel>(bool instantRemove = true) where TPanel : Panel
         {
             Type type = _panels.First(x => x.Key == typeof(TPanel)).Key;
-            _panelsAlwaysDisplay.Remove(type);
 
             if (instantRemove)
             {
