@@ -9,7 +9,7 @@ using Lortedo.Utilities.Pattern;
 namespace Lortedo.Utilities.Managers
 {
     // can't have an ABSTRACT class w/ mono behaviour inheritance
-    public class AbstractUIManager<T> : MonoBehaviour where T : MonoBehaviour
+    public class AbstractUIManager : MonoBehaviour
     {
         #region Fields
         private Dictionary<Type, Panel> _panels = new Dictionary<Type, Panel>();
