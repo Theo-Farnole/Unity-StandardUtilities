@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,28 +84,6 @@ namespace Lortedo.Utilities.Managers
                 bool shouldActive = (key.Key == typeof(TPanel));
 
                 key.Value.Root.SetActive(shouldActive);
-            }
-        }
-
-        /// <param name="instantDisplay">If set to false, wait for DisplayPanel to be displayed.</param>
-        public void AddAlwaysDisplay<TPanel>(bool instantDisplay = true) where TPanel : Panel
-        {
-            Type type = _panels.First(x => x.Key == typeof(TPanel)).Key;
-
-            if (instantDisplay)
-            {
-                _panels[type].Root.SetActive(true);
-            }
-        }
-
-        /// <param name="instantRemove">If set to false, wait for DisplayPanel to be removed from display.</param>
-        public void RemoveAlwaysDisplay<TPanel>(bool instantRemove = true) where TPanel : Panel
-        {
-            Type type = _panels.First(x => x.Key == typeof(TPanel)).Key;
-
-            if (instantRemove)
-            {
-                _panels[type].Root.SetActive(false);
             }
         }
         #endregion
