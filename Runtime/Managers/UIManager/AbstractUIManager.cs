@@ -14,11 +14,25 @@ namespace Lortedo.Utilities.Managers
         #region Fields
         private Dictionary<Type, Panel> _panels = new Dictionary<Type, Panel>();
 
-        private Type _currentDisplayPanel = null;
+        private Panel _currentPanel;
         #endregion
 
         #region Properties
-        public Type CurrentDisplayPanel { get => _currentDisplayPanel; }
+        private Panel CurrentPanel
+        {
+            get => _currentPanel;
+                
+            set
+            {
+                _currentPanel?.OnStateExit();
+                _currentPanel?.Root.SetActive(false);
+
+                _currentPanel = value;
+
+                _currentPanel?.Root.SetActive(true);
+                _currentPanel?.OnStateEnter();
+            }
+        }
         #endregion
 
         #region Methods
@@ -50,8 +64,10 @@ namespace Lortedo.Utilities.Managers
                 if (panel == null)
                     continue;
 
-                _panels.Add(type, panel);
                 panel.Initialize(this);
+                panel.Root.SetActive(false);
+
+                _panels.Add(type, panel);
             }
         }
 
@@ -77,14 +93,7 @@ namespace Lortedo.Utilities.Managers
         #region Public methods
         public void DisplayPanel<TPanel>() where TPanel : Panel
         {
-            _currentDisplayPanel = typeof(TPanel);
-
-            foreach (var key in _panels)
-            {
-                bool shouldActive = (key.Key == typeof(TPanel));
-
-                key.Value.Root.SetActive(shouldActive);
-            }
+            CurrentPanel = _panels[typeof(TPanel)];
         }
         #endregion
         #endregion

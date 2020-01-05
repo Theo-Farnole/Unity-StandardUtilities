@@ -16,5 +16,8 @@ namespace Lortedo.Utilities.Managers
 
         public virtual void OnValidate()
         { }
+
+        public virtual void OnStateEnter() { }
+        public virtual void OnStateExit() { }
     }
 }
