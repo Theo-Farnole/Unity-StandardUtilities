@@ -21,7 +21,7 @@ namespace Lortedo.Utilities.Managers
         private Panel CurrentPanel
         {
             get => _currentPanel;
-                
+
             set
             {
                 _currentPanel?.OnStateExit();
@@ -32,6 +32,11 @@ namespace Lortedo.Utilities.Managers
                 _currentPanel?.Root.SetActive(true);
                 _currentPanel?.OnStateEnter();
             }
+        }
+
+        protected virtual Type[] OwnedPanels
+        {
+            get => null;
         }
         #endregion
 
@@ -44,7 +49,7 @@ namespace Lortedo.Utilities.Managers
 
         protected virtual void OnValidate()
         {
-            foreach (Type type in UtilsClass.GetSubclass<Panel>())
+            foreach (Type type in OwnedPanels)
             {
                 GetPanel(type)?.OnValidate();
             }
@@ -57,7 +62,7 @@ namespace Lortedo.Utilities.Managers
         /// </summary>
         void InitializePanels()
         {
-            foreach (Type type in UtilsClass.GetSubclass<Panel>())
+            foreach (Type type in OwnedPanels)
             {
                 var panel = GetPanel(type);
 
