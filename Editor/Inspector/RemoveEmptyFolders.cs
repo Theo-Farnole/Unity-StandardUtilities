@@ -31,7 +31,7 @@ public class RemoveEmptyFolders : UnityEditor.AssetModificationProcessor
 	static string[] OnWillSaveAssets(string[] paths)
 	{
 		// If menu is unchecked, do nothing.
-		if (!EditorPrefs.GetBool(kMenuText, false))
+		if (!EditorPrefs.GetBool(kMenuText, true))
 			return paths;
 	
 		// Get empty directories in Assets directory
