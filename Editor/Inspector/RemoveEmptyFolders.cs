@@ -12,7 +12,7 @@ using System;
 /// </summary>
 public class RemoveEmptyFolders : UnityEditor.AssetModificationProcessor
 {
-	public const string kMenuText = "Assets/Remove Empty Folders";
+	public const string kMenuText = "Utilities/Remove Empty Folders on save";
 	static readonly StringBuilder s_Log = new StringBuilder();
 	static readonly List<DirectoryInfo> s_Results = new List<DirectoryInfo>();
 
