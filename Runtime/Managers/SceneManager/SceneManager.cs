@@ -92,7 +92,7 @@ namespace Lortedo.Utilities.Managers
         }
 
         /// <summary>
-        /// Load scene with logic scenes asynchronously.
+        /// Load scene with logic scenes asynchronously. NOT ADDITIVE.
         /// </summary>
         /// <param name="level">Level to load</param>
         public static void LoadSceneAsync(string level)

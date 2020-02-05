@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 namespace Lortedo.Utilities.Managers
 {
+    /// <summary>
+    /// Manage fade with Canvas.
+    /// </summary>
     public static class FadeSystem
     {
         #region Fields
@@ -48,11 +51,19 @@ namespace Lortedo.Utilities.Managers
         #endregion
 
         #region Fade Blink
+        /// <summary>
+        /// Fading in, then fading out.
+        /// </summary>
+        /// <param name="duration">Total duration of blink. Thus, fading in duration's half of the blink duration.</param>
         public static void FadeBlink(float duration)
         {
             FadeBlink(duration, Color.black);
         }
 
+        /// <summary>
+        /// Fading in, then fading out.
+        /// </summary>
+        /// <param name="duration">Total duration of blink. Thus, fading in duration's half of the blink duration.</param>
         public static void FadeBlink(float duration, Color color)
         {
             Fade(FadeType.FadeIn, duration / 2, color);
@@ -61,11 +72,19 @@ namespace Lortedo.Utilities.Managers
         #endregion
 
         #region Fade Blink Scene
+        /// <summary>
+        /// Fading in, then after the Utilities.SceneManager has load, fade out.
+        /// </summary>
+        /// <param name="duration">Total duration of blink. Thus, fading in duration's half of the blink duration.</param>
         public static void FadeBlinkScene(float duration)
         {
             FadeBlinkScene(duration, Color.black);
         }
 
+        /// <summary>
+        /// Fading in, then after the Utilities.SceneManager has load, fade out.
+        /// </summary>
+        /// <param name="duration">Total duration of blink. Thus, fading in duration's half of the blink duration.</param>
         public static void FadeBlinkScene(float duration, Color color)
         {
             Fade(FadeType.FadeIn, duration / 2, color);

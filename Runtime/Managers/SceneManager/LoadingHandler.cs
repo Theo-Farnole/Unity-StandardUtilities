@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Lortedo.Utilities.Managers
 {
+    /// <summary>
+    /// Used to hold Coroutine 
+    /// </summary>
     public class LoadingHandler : MonoBehaviour
     {
         // it used only by SceneManagement
