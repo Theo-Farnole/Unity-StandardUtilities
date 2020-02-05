@@ -8,7 +8,6 @@ using UnityEngine.Scripting;
 
 namespace Lortedo.Utilities.Managers
 {
-    [CreateAssetMenu(menuName = "Utilities/SceneManager Data", fileName = "SceneManager Data")]
     public class SceneManagerData : ScriptableObject
     {
         [SerializeField] private string _scenePath = "Assets/Scenes/";
