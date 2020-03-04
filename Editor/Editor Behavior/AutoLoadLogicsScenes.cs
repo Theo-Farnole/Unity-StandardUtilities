@@ -16,9 +16,9 @@ class AutoLoadLogicsScenes
         EditorSceneManager.sceneOpened += LoadGameplay;
     }
 
-    private static void LoadGameplay(Scene scene, OpenSceneMode mode)
+    private static void LoadGameplay(Scene loadedScene, OpenSceneMode mode)
     {
-        bool isLoadedSceneIsGameplay = Lortedo.Utilities.Managers.SceneManager.Data.LogicScenesNames.Contains(scene.name);
+        bool isLoadedSceneIsGameplay = Lortedo.Utilities.Managers.SceneManager.Data.LogicScenesNames.Contains(loadedScene.name);
 
         if (isLoadedSceneIsGameplay)
             return;
@@ -28,7 +28,8 @@ class AutoLoadLogicsScenes
 
         for (int i = 0; i < logicScenesNames.Length; i++)
         {
-            EditorSceneManager.OpenScene(path + logicScenesNames[i] + ".unity", OpenSceneMode.Additive);
+            var logicScene = EditorSceneManager.OpenScene(path + logicScenesNames[i] + ".unity", OpenSceneMode.Additive);
+            EditorSceneManager.MoveSceneBefore(logicScene, loadedScene);
         }
     }
 }
