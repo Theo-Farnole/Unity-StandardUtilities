@@ -7,9 +7,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [InitializeOnLoad]
-class AutoLoadLogicsScenes
+class AutoLoadLogicScenes
 {
-    static AutoLoadLogicsScenes()
+    static AutoLoadLogicScenes()
     {
         Debug.LogFormat("Auto Load plugin initializing...");
         
