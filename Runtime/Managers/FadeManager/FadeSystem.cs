@@ -70,31 +70,6 @@ namespace Lortedo.Utilities.Managers
             _fadeImage.ExecuteAfterTime(duration / 2, () => Fade(FadeType.FadeOut, duration / 2, color));
         }
         #endregion
-
-        #region Fade Blink Scene
-        /// <summary>
-        /// Fading in, then after the Utilities.SceneManager has load, fade out.
-        /// </summary>
-        /// <param name="duration">Total duration of blink. Thus, fading in duration's half of the blink duration.</param>
-        public static void FadeBlinkScene(float duration)
-        {
-            FadeBlinkScene(duration, Color.black);
-        }
-
-        /// <summary>
-        /// Fading in, then after the Utilities.SceneManager has load, fade out.
-        /// </summary>
-        /// <param name="duration">Total duration of blink. Thus, fading in duration's half of the blink duration.</param>
-        public static void FadeBlinkScene(float duration, Color color)
-        {
-            Fade(FadeType.FadeIn, duration / 2, color);
-
-            SceneManager.OnSceneActivation += () =>
-            {
-                Fade(FadeType.FadeOut, duration / 2, color);
-            };
-        }
-        #endregion
         #endregion
     }
 }
