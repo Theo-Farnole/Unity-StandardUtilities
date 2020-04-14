@@ -36,5 +36,27 @@ namespace Lortedo.Utilities
         {
             return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
         }
+
+        /// <summary>
+        /// Returns normalized vector (from; to)
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        public static Vector3 Direction(Vector3 from, Vector3 to)
+        {
+            return VectorFromPoints(from, to).normalized;
+        }
+        
+        /// <summary>
+        /// Returns vector (from; to)
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        public static Vector3 VectorFromPoints(Vector3 from, Vector3 to)
+        {
+            return to - from;
+        }
     }
 }
