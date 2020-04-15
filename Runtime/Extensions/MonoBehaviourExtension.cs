@@ -43,4 +43,19 @@ public static class MonoBehaviourExtension
 
         task();
     }
+
+    /// <summary>
+    /// Get component. If no component is attached, add one.
+    /// </summary>
+    public static T GetOrAddComponent<T>(this MonoBehaviour monoBehaviour) where T: Component
+    {
+        T component = monoBehaviour.GetComponent(typeof(T)) as T;
+
+        if (component == null)
+        {
+            component = monoBehaviour.gameObject.AddComponent(typeof(T)) as T;
+        }
+
+        return component;
+    }
 }
