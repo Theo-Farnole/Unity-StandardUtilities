@@ -7,7 +7,7 @@ namespace Lortedo.Utilities
     public class GizmosSphere : MonoBehaviour
     {
         [SerializeField] private Color _color = Color.yellow;
-        [SerializeField] private float _radius = 0.3f;
+        [SerializeField] private float _radius = 0.3f;        
 
         void OnDrawGizmos()
         {
