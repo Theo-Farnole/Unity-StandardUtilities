@@ -55,7 +55,7 @@ public class GizmosDrawRelativeAxis : MonoBehaviour
         {
             Debug.LogFormat("Je draw");
 
-            Vector3 rootPosition = transform.position; // + _offset
+            Vector3 rootPosition = transform.position + _offset;
 
             _drawUpAxis.DrawAxis(rootPosition, transform.up, _axisLength);
             _drawDownAxis.DrawAxis(rootPosition, -transform.up, _axisLength);
