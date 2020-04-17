@@ -80,5 +80,10 @@ namespace Lortedo.Utilities
 
             return o;
         }
+
+        public static float NearestOfZero(float v1, float v2)
+        {
+            return Mathf.Abs(v1) < Mathf.Abs(v2) ? v1 : v2;
+        }
     }
 }
