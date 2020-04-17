@@ -53,8 +53,6 @@ public class GizmosDrawRelativeAxis : MonoBehaviour
 
         if (_drawOnSelectedOnly && isSelected || !_drawOnSelectedOnly)
         {
-            Debug.LogFormat("Je draw");
-
             Vector3 rootPosition = transform.position + _offset;
 
             _drawUpAxis.DrawAxis(rootPosition, transform.up, _axisLength);
