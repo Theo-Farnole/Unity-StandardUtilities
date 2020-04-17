@@ -58,5 +58,27 @@ namespace Lortedo.Utilities
         {
             return to - from;
         }
+
+        public static Vector3 Clamp(Vector3 value, Vector3 min, Vector3 max)
+        {
+            Vector3 o = new Vector3(
+                Mathf.Clamp(value.x, min.x, max.x),
+                Mathf.Clamp(value.y, min.y, max.y),
+                Mathf.Clamp(value.z, min.z, max.z)
+            );
+
+            return o;
+        }
+
+        public static Vector3 Clamp(Vector3 value, float min, float max)
+        {
+            Vector3 o = new Vector3(
+                Mathf.Clamp(value.x, min, max),
+                Mathf.Clamp(value.y, min, max),
+                Mathf.Clamp(value.z, min, max)
+            );
+
+            return o;
+        }
     }
 }
