@@ -85,5 +85,10 @@ namespace Lortedo.Utilities
         {
             return Mathf.Abs(v1) < Mathf.Abs(v2) ? v1 : v2;
         }
+
+        public static bool HaveSameSign(float v1, float v2)
+        {
+            return Mathf.Sign(v1) == Mathf.Sign(v2);
+        }
     }
 }
