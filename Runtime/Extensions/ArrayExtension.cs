@@ -19,4 +19,9 @@ public static class ArrayExtension
 
         return array;
     }
+
+    public static bool IsIndexInsideBounds<T>(this T[] array, int index)
+    {
+        return index >= 0 && index < array.Length;
+    }
 }
