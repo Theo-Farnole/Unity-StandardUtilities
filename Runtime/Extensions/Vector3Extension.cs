@@ -36,4 +36,12 @@ public static class Vector3Extension
     {
         return new Vector3(v.x, v.y, value);
     }
+	
+	/// <summary>
+    /// Project vector on Y plane
+    /// </summary>
+    public static Vector3 ToXY(this Vector3 v)
+    {
+        return new Vector3(v.x, v.y, 0);
+    }
 }
