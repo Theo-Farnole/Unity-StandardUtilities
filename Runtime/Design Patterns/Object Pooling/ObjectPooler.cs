@@ -84,7 +84,12 @@ namespace Lortedo.Utilities.Pattern
             toEnqueue.SetActive(false);
             _pools[tag].Enqueue(toEnqueue);
 
-            Debugging.DynamicsObjects.Instance?.SetToParent(toEnqueue.transform, tag + "_pool");
+#if UNITY_EDITOR
+            if (Debugging.DynamicsObjects.Instance != null)
+                Debugging.DynamicsObjects.Instance.SetToParent(toEnqueue.transform, tag + "_pool");
+            else
+#endif
+                toEnqueue.transform.parent = null;
         }
         #endregion
 
