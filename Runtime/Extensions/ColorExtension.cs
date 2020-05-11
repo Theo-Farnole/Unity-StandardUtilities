@@ -17,4 +17,18 @@ public static class ColorExtension
     {
         c = new Color(c.r, c.g, c.b, alpha);
     }
+
+    public static Color TintColor(this Color defaultColor, Color hueColor)
+    {
+        Color.RGBToHSV(hueColor, out float h, out float s, out float v);
+        return TintColor(defaultColor, h);
+    }
+
+    public static Color TintColor(this Color defaultColor, float newHue)
+    {
+        Color.RGBToHSV(defaultColor, out float hueDefaultColor, out float satDefaultColor, out float valueDefaultColor);
+        Color output = Color.HSVToRGB(newHue, satDefaultColor, valueDefaultColor);
+        output.a = defaultColor.a;
+        return output;
+    }
 }
