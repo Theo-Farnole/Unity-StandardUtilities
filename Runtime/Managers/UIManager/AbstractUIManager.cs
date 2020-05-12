@@ -54,6 +54,16 @@ namespace Lortedo.Utilities.Managers
                 GetPanel(type)?.OnValidate();
             }
         }
+
+        protected virtual void OnEnable()
+        {
+            SubscribeToPanelsEvents();
+        }
+
+        protected virtual void OnDisable()
+        {
+            UnsubcribeToPanelsEvents();
+        }
         #endregion
 
         #region Private methods
@@ -74,6 +84,18 @@ namespace Lortedo.Utilities.Managers
 
                 _panels.Add(type, panel);
             }
+        }
+
+        void SubscribeToPanelsEvents()
+        {
+            foreach (var kvp in _panels)
+                kvp.Value.SubscribeToEvents(this);
+        }
+
+        void UnsubcribeToPanelsEvents()
+        {
+            foreach (var kvp in _panels)
+                kvp.Value.UnsubscribeToEvents(this);
         }
 
         Panel GetPanel(Type type)

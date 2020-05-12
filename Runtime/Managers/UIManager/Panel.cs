@@ -19,5 +19,10 @@ namespace Lortedo.Utilities.Managers
 
         public virtual void OnStateEnter() { }
         public virtual void OnStateExit() { }
+
+        public virtual void SubscribeToEvents<T>(T uiManager) where T : AbstractUIManager
+        { }
+        public virtual void UnsubscribeToEvents<T>(T uiManager) where T : AbstractUIManager
+        { }
     }
 }
