@@ -55,6 +55,8 @@ namespace Lortedo.Utilities.Pattern
             {
                 CreatePool(prefab.name, prefab);
                 Debug.LogFormat(debugLogHeader + "Create pool of key '{0}' at runtime.", prefab.name);
+
+                tag = GetTagFromPrefab(prefab); // find tag w/ newly created pools
             }
 
             return SpawnFromPool(tag, position, rotation);
