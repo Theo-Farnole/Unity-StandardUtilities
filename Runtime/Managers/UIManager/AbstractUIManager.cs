@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using Lortedo.Utilities.Pattern;
+using UnityEngine.Assertions;
 
 namespace Lortedo.Utilities.Managers
 {
@@ -12,7 +13,7 @@ namespace Lortedo.Utilities.Managers
     public class AbstractUIManager : MonoBehaviour
     {
         #region Fields
-        private Dictionary<Type, Panel> _panels = new Dictionary<Type, Panel>();
+        private Dictionary<Type, Panel> _panels;
         #endregion
 
         #region Properties
@@ -26,13 +27,16 @@ namespace Lortedo.Utilities.Managers
         #region Mono Callbacks
         protected virtual void Start()
         {
-            InitializePanels();
+            // we set initialize on Start
+            // to avoid null reference if Singleton are in others scenes
+            if (_panels == null)
+                InitializePanels();
         }
 
         protected virtual void OnValidate()
         {
-            foreach (Type type in OwnedPanels)            
-                GetPanel(type)?.OnValidate();            
+            foreach (Type type in OwnedPanels)
+                GetPanel(type)?.OnValidate();
         }
 
         protected virtual void OnEnable()
@@ -52,6 +56,14 @@ namespace Lortedo.Utilities.Managers
         /// </summary>
         void InitializePanels()
         {
+            if (_panels != null)
+            {
+                Debug.LogErrorFormat("UI Manager : Panels are already initialized. Aborting InitializePanels method.");
+                return;
+            }
+
+            _panels = new Dictionary<Type, Panel>();
+
             foreach (Type type in OwnedPanels)
             {
                 var panel = GetPanel(type);
@@ -66,6 +78,10 @@ namespace Lortedo.Utilities.Managers
 
         void SubscribeToPanelsEvents()
         {
+            // try to initialize panels
+            if (_panels == null)
+                InitializePanels();
+
             foreach (var kvp in _panels)
                 kvp.Value.SubscribeToEvents(this);
         }
