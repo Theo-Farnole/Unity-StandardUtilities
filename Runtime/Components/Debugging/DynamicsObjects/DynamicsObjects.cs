@@ -34,6 +34,14 @@ namespace Lortedo.Utilities.Debugging
         /// </summary>
         public void AddParent(string tag)
         {
+            if (_parents.ContainsKey(tag))
+            {
+                Debug.LogErrorFormat("DynamicsObjects : A parent already exist with tag {0}. Can't create parent.", tag);
+                return;
+            }
+
+            Debug.LogFormat("<color=cyan>DynamicsObjects</color> : Creating parent '{0}'.", tag);
+
             Transform obj = new GameObject().transform;
             obj.name = "Parent " + tag;
             obj.parent = transform;

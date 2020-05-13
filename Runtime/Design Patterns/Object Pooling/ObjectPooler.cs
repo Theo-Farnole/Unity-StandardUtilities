@@ -33,11 +33,13 @@ namespace Lortedo.Utilities.Pattern
         #region Mono Callbacks
         void Awake()
         {
+            // avoid error if modification of list while browsing it
+            var prefabPool = _prefabsPool;
+
             // create Dictionnary from Pools Array (because Unity doesn't Dictionnary)
-            for (int i = 0; i < _prefabsPool.Count; i++)
+            for (int i = 0; i < prefabPool.Count; i++)
             {
-                Debugging.DynamicsObjects.Instance?.AddParent(_prefabsPool[i].tag + "_pool");
-                CreatePool(_prefabsPool[i].tag, null);
+                CreatePool(prefabPool[i].tag, null);
             }
         }
         #endregion
@@ -147,8 +149,14 @@ namespace Lortedo.Utilities.Pattern
                 Debug.LogWarningFormat("You are creating a new pool. However, the prefab already exist in pool of tag {0}.", _prefabsPool.Where(x => x.prefab).First().tag);
             }
 
-            _prefabsPool.Add(new Pool(tag, prefab));
             _pools.Add(tag, new Queue<GameObject>());
+
+            // should we create a new pool ?
+            Pool poolWithTagFromArg = _prefabsPool.Where(x => x.tag == tag).FirstOrDefault();
+            if (poolWithTagFromArg == null)
+                _prefabsPool.Add(new Pool(tag, prefab));
+
+            Debugging.DynamicsObjects.Instance?.AddParent(tag + "_pool");
         }
 
 
