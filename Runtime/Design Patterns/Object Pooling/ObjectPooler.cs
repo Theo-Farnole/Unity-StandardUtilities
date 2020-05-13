@@ -50,8 +50,8 @@ namespace Lortedo.Utilities.Pattern
             // try to create pool
             if (!_pools.ContainsKey(tag) && createPoolIfDontExist)
             {
-                Debug.LogFormat("Create pool of key '{0}' at runtime.", tag);
                 CreatePool(prefab.name, prefab);
+                Debug.LogFormat("Create pool of key '{0}' at runtime.", prefab.name);
             }
 
             return SpawnFromPool(tag, position, rotation);
