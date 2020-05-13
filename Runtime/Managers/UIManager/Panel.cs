@@ -7,18 +7,40 @@ namespace Lortedo.Utilities.Managers
     [System.Serializable]
     public abstract class Panel
     {
-        [SerializeField] private GameObject _root;        
+        [SerializeField] private Canvas _canvas;
 
-        public GameObject Root { get => _root; }
 
         public virtual void Initialize<T>(T uiManager) where T : AbstractUIManager
-        { }
+        {
+            // sometime developer disable UI by deactivating the canvas
+            // however, for performance reason, we just disable _canvas
+            // so, we assert that our gameobject isn't disabled
+            _canvas.gameObject.SetActive(true);
+        }
 
         public virtual void OnValidate()
-        { }
+        {
 
-        public virtual void OnStateEnter() { }
-        public virtual void OnStateExit() { }
+        }
+
+        public void Show()
+        {
+            if (!_canvas.enabled)
+                OnShow();
+
+            _canvas.enabled = true;
+        }
+
+        public void Hide()
+        {
+            if (_canvas.enabled)
+                OnHide();
+
+            _canvas.enabled = false;
+        }
+
+        public virtual void OnShow() { }
+        public virtual void OnHide() { }
 
         public virtual void SubscribeToEvents<T>(T uiManager) where T : AbstractUIManager
         { }

@@ -13,27 +13,9 @@ namespace Lortedo.Utilities.Managers
     {
         #region Fields
         private Dictionary<Type, Panel> _panels = new Dictionary<Type, Panel>();
-
-        private Panel _currentPanel;
         #endregion
 
         #region Properties
-        private Panel CurrentPanel
-        {
-            get => _currentPanel;
-
-            set
-            {
-                _currentPanel?.OnStateExit();
-                _currentPanel?.Root.SetActive(false);
-
-                _currentPanel = value;
-
-                _currentPanel?.Root.SetActive(true);
-                _currentPanel?.OnStateEnter();
-            }
-        }
-
         protected virtual Type[] OwnedPanels
         {
             get => null;
@@ -42,17 +24,15 @@ namespace Lortedo.Utilities.Managers
 
         #region Methods
         #region Mono Callbacks
-        protected virtual void Awake()
+        protected virtual void Start()
         {
             InitializePanels();
         }
 
         protected virtual void OnValidate()
         {
-            foreach (Type type in OwnedPanels)
-            {
-                GetPanel(type)?.OnValidate();
-            }
+            foreach (Type type in OwnedPanels)            
+                GetPanel(type)?.OnValidate();            
         }
 
         protected virtual void OnEnable()
@@ -80,8 +60,6 @@ namespace Lortedo.Utilities.Managers
                     continue;
 
                 panel.Initialize(this);
-                panel.Root.SetActive(false);
-
                 _panels.Add(type, panel);
             }
         }
@@ -114,13 +92,6 @@ namespace Lortedo.Utilities.Managers
 
             Panel panel = (Panel)panelFieldInfo.GetValue(this);
             return panel;
-        }
-        #endregion
-
-        #region Public methods
-        public void DisplayPanel<TPanel>() where TPanel : Panel
-        {
-            CurrentPanel = _panels[typeof(TPanel)];
         }
         #endregion
         #endregion
