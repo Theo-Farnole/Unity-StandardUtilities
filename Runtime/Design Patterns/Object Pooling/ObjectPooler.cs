@@ -24,6 +24,7 @@ namespace Lortedo.Utilities.Pattern
             }
         }
 
+        private const string debugLogHeader = "<color=green>Object Pooler</color> : ";
         [SerializeField] private List<Pool> _prefabsPool; // the pool user inputs'll set as a dictonary
 
         private Dictionary<string, Queue<GameObject>> _pools = new Dictionary<string, Queue<GameObject>>();
@@ -53,7 +54,7 @@ namespace Lortedo.Utilities.Pattern
             if (!_pools.ContainsKey(tag) && createPoolIfDontExist)
             {
                 CreatePool(prefab.name, prefab);
-                Debug.LogFormat("Create pool of key '{0}' at runtime.", prefab.name);
+                Debug.LogFormat(debugLogHeader + "Create pool of key '{0}' at runtime.", prefab.name);
             }
 
             return SpawnFromPool(tag, position, rotation);
@@ -63,7 +64,7 @@ namespace Lortedo.Utilities.Pattern
         {
             if (!_pools.ContainsKey(tag))
             {
-                Debug.LogWarning("Pool with tag " + tag + " doesn't exist.");
+                Debug.LogWarning(debugLogHeader + "Pool with tag " + tag + " doesn't exist.");
                 return null;
             }
 
@@ -95,7 +96,7 @@ namespace Lortedo.Utilities.Pattern
         {
             if (_pools[tag].Contains(toEnqueue))
             {
-                Debug.LogWarning("Enqueuing an already enqued game object. Aborting");
+                Debug.LogWarning(debugLogHeader + "Enqueuing an already enqued game object. Aborting");
                 return;
             }
 
