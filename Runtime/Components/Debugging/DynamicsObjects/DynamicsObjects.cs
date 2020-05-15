@@ -11,6 +11,7 @@ namespace Lortedo.Utilities.Debugging
     /// </summary>
     public class DynamicsObjects : Pattern.Singleton<DynamicsObjects>
     {
+        private const string debugLogHeader = "<color=cyan>DynamicsObjects</color> : ";
         #region Fields
         [SerializeField] private string[] _parentsTag;
 
@@ -36,11 +37,11 @@ namespace Lortedo.Utilities.Debugging
         {
             if (_parents.ContainsKey(tag))
             {
-                Debug.LogErrorFormat("DynamicsObjects : A parent already exist with tag {0}. Can't create parent.", tag);
+                Debug.LogErrorFormat(debugLogHeader + "A parent already exist with tag {0}. Can't create parent.", tag);
                 return;
             }
 
-            Debug.LogFormat("<color=cyan>DynamicsObjects</color> : Creating parent '{0}'.", tag);
+            Debug.LogFormat(debugLogHeader + "Creating parent '{0}'.", tag);
 
             Transform obj = new GameObject().transform;
             obj.name = "Parent " + tag;
@@ -59,7 +60,7 @@ namespace Lortedo.Utilities.Debugging
 #if UNITY_EDITOR
             if (!_parents.ContainsKey(tag))
             {
-                Debug.LogWarning("Parent type " + tag + " doesn't exists.");
+                Debug.LogWarning(debugLogHeader + "Parent type " + tag + " doesn't exists.");
                 return;
             }
 
