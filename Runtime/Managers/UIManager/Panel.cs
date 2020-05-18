@@ -13,7 +13,7 @@ namespace Lortedo.Utilities.Managers
         public virtual void Initialize<T>(T uiManager) where T : AbstractUIManager
         {
             // sometime developer disable UI by deactivating the canvas
-            // however, for performance reason, we just disable _canvas
+            // however, for performance reason, we just disable the Canvas component
             // so, we assert that our gameobject isn't disabled
             _canvas.gameObject.SetActive(true);
         }
@@ -22,6 +22,8 @@ namespace Lortedo.Utilities.Managers
         {
 
         }
+
+        public bool IsPanelEnable() => _canvas.enabled;
 
         public void Show()
         {
