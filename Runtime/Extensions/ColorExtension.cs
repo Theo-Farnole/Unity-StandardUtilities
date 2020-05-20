@@ -13,9 +13,9 @@ public static class ColorExtension
         return hexR + hexG + hexB;
     }
 
-    public static void SetAlpha(this Color c, float alpha)
+    public static Color SetAlpha(this Color c, float alpha)
     {
-        c = new Color(c.r, c.g, c.b, alpha);
+        return new Color(c.r, c.g, c.b, alpha);
     }
 
     public static Color TintColor(this Color defaultColor, Color hueColor)
