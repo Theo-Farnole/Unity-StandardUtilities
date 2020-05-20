@@ -18,4 +18,9 @@ public static class Vector2Extension
     {
         return new Vector2Int(Mathf.RoundToInt(v.x), Mathf.RoundToInt(v.y));
     }
+
+    public static Vector3 ToXZ(this Vector2Int v)
+    {
+        return new Vector3(v.x, 0, v.y);
+    }
 }
