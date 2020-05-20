@@ -24,4 +24,9 @@ public static class ArrayExtension
     {
         return index >= 0 && index < array.Length;
     }
+
+    public static bool IsIndexInsideBounds<T>(this List<T> array, int index)
+    {
+        return index >= 0 && index < array.Count;
+    }
 }
