@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Lortedo.Utilities.Pattern
 {
@@ -50,14 +51,8 @@ namespace Lortedo.Utilities.Pattern
         {
             string tag = GetTagFromPrefab(prefab);
 
-            // try to create pool
-            if (!_pools.ContainsKey(tag) && createPoolIfDontExist)
-            {
-                CreatePool(prefab.name, prefab);
-                Debug.LogFormat(debugLogHeader + "Create pool of key '{0}' at runtime.", prefab.name);
-
-                tag = GetTagFromPrefab(prefab); // find tag w/ newly created pools
-            }
+            if (createPoolIfDontExist && !_pools.ContainsKey(tag))
+                CreatePool(tag, prefab);
 
             return SpawnFromPool(tag, position, rotation);
         }
@@ -87,15 +82,20 @@ namespace Lortedo.Utilities.Pattern
             return objectToSpawn;
         }
 
-        public void EnqueueGameObject(GameObject prefab, GameObject toEnqueue)
+        public void EnqueueGameObject(GameObject prefab, GameObject toEnqueue, bool createPoolIfDontExist = false)
         {
             string tag = GetTagFromPrefab(prefab);
+
+            if (createPoolIfDontExist && !_pools.ContainsKey(tag))
+                CreatePool(tag, prefab);
 
             EnqueueGameObject(tag, toEnqueue);
         }
 
         public void EnqueueGameObject(string tag, GameObject toEnqueue)
         {
+            Assert.IsTrue(_pools.ContainsKey(tag), string.Format(debugLogHeader + "Pool {0} don't exists.", tag));
+
             if (_pools[tag].Contains(toEnqueue))
             {
                 Debug.LogWarning(debugLogHeader + "Enqueuing an already enqued game object. Aborting");
@@ -136,7 +136,7 @@ namespace Lortedo.Utilities.Pattern
         private string GetTagFromPrefab(GameObject prefab)
         {
             Pool pool = _prefabsPool.Where(x => x.prefab == prefab).FirstOrDefault();
-            return pool != null ? pool.tag : string.Empty;
+            return pool != null ? pool.tag : prefab.name;
         }
 
         private void CreatePool(string tag, GameObject prefab)
@@ -161,7 +161,6 @@ namespace Lortedo.Utilities.Pattern
 
             Debugging.DynamicsObjects.Instance?.AddParent(tag + "_pool");
         }
-
 
         bool DoPoolExist(GameObject prefab)
         {
