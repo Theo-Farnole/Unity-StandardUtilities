@@ -3,14 +3,18 @@
     using UnityEngine;
     using UnityEditor;
     using Lortedo.Utilities.DataTypes;
+    using UnityEngine.Assertions;
 
     [CustomPropertyDrawer(typeof(Bounds2D))]
     public class Bounds2DDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            SerializedProperty minimum = property.FindPropertyRelative("minimum");
-            SerializedProperty maximum = property.FindPropertyRelative("maximum");
+            SerializedProperty minimum = property.FindPropertyRelative("min");
+            SerializedProperty maximum = property.FindPropertyRelative("max");
+
+            Assert.IsNotNull(minimum, "Property 'min' not found in Bounds2D.");
+            Assert.IsNotNull(maximum, "Property 'max' not found in Bounds2D.");
 
             int indent = EditorGUI.indentLevel;
             EditorGUI.indentLevel = 0;

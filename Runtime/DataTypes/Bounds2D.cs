@@ -5,24 +5,24 @@
     [System.Serializable]
     public class Bounds2D
     {
-        public float minimum;
-        public float maximum;
+        public float min;
+        public float max;
 
         public Bounds2D(float min, float max)
         {
-            minimum = min;
-            maximum = max;
+            this.min = min;
+            this.max = max;
         }
 
         public Bounds2D(Vector2 limits)
         {
-            minimum = limits.x;
-            maximum = limits.y;
+            min = limits.x;
+            max = limits.y;
         }
 
         public bool WithinLimits(float value)
         {
-            return (value >= minimum && value <= maximum);
+            return (value >= min && value <= max);
         }
     }
 
@@ -30,17 +30,17 @@
     {
         public static Vector2 ToVector(this Bounds2D b)
         {
-            return new Vector2(b.minimum, b.maximum);
+            return new Vector2(b.min, b.max);
         }
 
         public static bool WithinLimits(this Bounds2D b, float value)
         {
-            return (value >= b.minimum && value <= b.maximum);
+            return (value >= b.min && value <= b.max);
         }
 
         public static float Clamp(this Bounds2D b, float value)
         {
-            return Mathf.Clamp(value, b.minimum, b.maximum);
+            return Mathf.Clamp(value, b.min, b.max);
         }
     }
 }
