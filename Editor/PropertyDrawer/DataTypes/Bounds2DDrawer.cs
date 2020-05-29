@@ -16,24 +16,25 @@
             Assert.IsNotNull(minimum, "Property 'min' not found in Bounds2D.");
             Assert.IsNotNull(maximum, "Property 'max' not found in Bounds2D.");
 
-            int indent = EditorGUI.indentLevel;
-            EditorGUI.indentLevel = 0;
-            position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
-            float updatePositionX = position.x;
-            float labelWidth = 30f;
-            float fieldWidth = (position.width / 3f) - labelWidth;
 
-            EditorGUI.LabelField(new Rect(updatePositionX, position.y, labelWidth, position.height), "Min");
-            updatePositionX += labelWidth;
-            minimum.floatValue = EditorGUI.FloatField(new Rect(updatePositionX, position.y, fieldWidth, position.height), minimum.floatValue);
-            updatePositionX += fieldWidth;
+            GUILayoutOption[] options = { GUILayout.MaxWidth(100.0f), GUILayout.MinWidth(10.0f) };
 
-            EditorGUI.LabelField(new Rect(updatePositionX, position.y, labelWidth, position.height), "Max");
-            updatePositionX += labelWidth;
-            maximum.floatValue = EditorGUI.FloatField(new Rect(updatePositionX, position.y, fieldWidth, position.height), maximum.floatValue);
-            updatePositionX += fieldWidth;
+            EditorGUILayout.BeginHorizontal();
 
-            EditorGUI.indentLevel = indent;
+            EditorGUILayout.PrefixLabel(label);
+
+            EditorGUILayout.LabelField("Min", options);
+            minimum.floatValue = EditorGUILayout.FloatField(minimum.floatValue);
+            EditorGUILayout.LabelField("Max", options);
+            maximum.floatValue = EditorGUILayout.FloatField(maximum.floatValue);
+
+
+            EditorGUILayout.EndHorizontal();            
+        }
+
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            return EditorGUIUtility.singleLineHeight * 0;
         }
     }
 }
