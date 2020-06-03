@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Lortedo.Utilities
 {
@@ -89,6 +90,33 @@ namespace Lortedo.Utilities
         public static bool HaveSameSign(float v1, float v2)
         {
             return Mathf.Sign(v1) == Mathf.Sign(v2);
+        }
+
+        public static Vector3 GetCentroid(Vector3[] points, float deviance)
+        {
+            // TODO: Remove points that doesn't respect deviance.
+            throw new System.NotImplementedException();
+
+            return GetCentroid(points);
+        }
+
+        /// <summary>
+        /// Warning, this method use 'bounds.Encapsulate' for each point. It can be performance heavy.
+        /// </summary>
+        public static Vector3 GetCentroid(Vector3[] points)
+        {
+            Assert.IsTrue(points.Length > 0, "To GetCentroid, 'points' array must be have at least one element.");
+
+            Bounds bounds = new Bounds(points[0], Vector3.zero);
+
+            foreach (var point in points)
+            {
+                bounds.Encapsulate(point);
+            }
+
+            Vector3 output = bounds.center;
+
+            return output;
         }
     }
 }
