@@ -118,5 +118,7 @@ namespace Lortedo.Utilities
 
             return output;
         }
+
+        public static bool Approximately(float a, float b, float delta) => Mathf.Abs(a - b) <= delta;
     }
 }
